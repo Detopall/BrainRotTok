@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+openai-whisper = "*"
+moviepy = "*"
+setuptools = "*"
+torch = "*"
+imageio = {extras = ["ffmpeg"], version = "*"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
