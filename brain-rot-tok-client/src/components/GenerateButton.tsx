@@ -1,9 +1,12 @@
 interface GenerateButtonProps {
 	topVideo: HTMLVideoElement | null;
 	bottomVideo: HTMLVideoElement | null;
+	color: string;
+	size: number;
+	font: string;
 }
 
-function GenerateButton({ topVideo, bottomVideo }: GenerateButtonProps) {
+function GenerateButton({ topVideo, bottomVideo, color, size, font }: GenerateButtonProps) {
 	async function handleRequest() {
 		try {
 			if (topVideo && bottomVideo) {
@@ -13,6 +16,11 @@ function GenerateButton({ topVideo, bottomVideo }: GenerateButtonProps) {
 				const formData = new FormData();
 				formData.append('topVideo', topVideoBlob, 'topVideo.mp4');
 				formData.append('bottomVideo', bottomVideoBlob, 'bottomVideo.mp4');
+				formData.append('color', color);
+				formData.append('size', size.toString());
+				formData.append('font', font);
+
+				console.log(formData);
 
 				const response = await fetch('TODO:ADD SERVER ENDPOINT', {
 					method: 'POST',
