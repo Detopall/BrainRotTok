@@ -1,13 +1,23 @@
 import { useState } from 'react';
 import Videos from './components/Videos';
 import Subtitle from './components/Subtitle';
-
+import GenerateButton from './components/GenerateButton';
 
 function App() {
 	const [color, setColor] = useState("#000000");
 	const [size, setSize] = useState(24);
 	const [font, setFont] = useState("Arial");
 	const fontFamily = ["Arial", "Times New Roman", "Verdana", "Courier New", "Impact", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Arial Black", "Lucida Console"];
+	const [topVideo, setTopVideo] = useState<HTMLVideoElement | null>(null);
+	const [bottomVideo, setBottomVideo] = useState<HTMLVideoElement | null>(null);
+
+	const setTopVideoFile = (video: HTMLVideoElement  | null) => {
+		setTopVideo(video);
+	};
+
+	const setBottomVideoFile = (video: HTMLVideoElement  | null) => {
+		setBottomVideo(video);
+	};
 
 	return (
 		<div className='container'>
@@ -20,7 +30,7 @@ function App() {
 			<p> Press generate to get your new video. </p>
 
 
-			<Videos />
+			<Videos setTopVideoFile={setTopVideoFile} setBottomVideoFile={setBottomVideoFile} />
 			<Subtitle color={color}
 				setColor={setColor}
 				size={size}
@@ -29,10 +39,8 @@ function App() {
 				setFont={setFont}
 				fontFamily={fontFamily}
 			/>
-			
-			<div className="button-section">
-				<button className="generate-button"> Generate </button>
-			</div>
+
+			<GenerateButton bottomVideo={bottomVideo} topVideo={topVideo} />
 		</div>
 	)
 }
