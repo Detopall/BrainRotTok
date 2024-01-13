@@ -14,15 +14,13 @@ function GenerateButton({ topVideo, bottomVideo, color, size, font }: GenerateBu
 				const bottomVideoBlob = await fetch(bottomVideo.src).then(response => response.blob());
 
 				const formData = new FormData();
-				formData.append('topVideo', topVideoBlob, 'topVideo.mp4');
-				formData.append('bottomVideo', bottomVideoBlob, 'bottomVideo.mp4');
+				formData.append('top_video', topVideoBlob, 'top_video.mp4');
+				formData.append('bottom_video', bottomVideoBlob, 'bottom_video.mp4');
 				formData.append('color', color);
 				formData.append('size', size.toString());
 				formData.append('font', font);
 
-				console.log(formData);
-
-				const response = await fetch('TODO:ADD SERVER ENDPOINT', {
+				const response = await fetch('http://localhost:8000/generate_subtitles', {
 					method: 'POST',
 					body: formData,
 				});
@@ -30,7 +28,7 @@ function GenerateButton({ topVideo, bottomVideo, color, size, font }: GenerateBu
 				const data = await response.json();
 				console.log('Success:', data);
 			} else {
-				console.log('No bottom video selected.');
+				console.log('No top or bottom video selected.');
 			}
 		} catch (error) {
 			console.error('Error uploading video:', error);
