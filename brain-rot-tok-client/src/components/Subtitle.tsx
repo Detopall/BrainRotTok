@@ -41,7 +41,7 @@ function Subtitle({ color, setColor, size, setSize, font, setFont, fontFamily }:
 					<label htmlFor="font">Subtitle Font</label>
 					<select id="font" name="font">
 						{fontFamily.map((font) => {
-							return <option value={font} key={font} onClick={(e) => {
+							return <option value={font} key={font} style={{fontFamily: font}} onClick={(e) => {
 								const subtitle = document.querySelector(".subtitle") as HTMLElement;
 								subtitle.style.fontFamily = font;
 								setFont(font);

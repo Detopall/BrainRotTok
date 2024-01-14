@@ -1,8 +1,10 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 import shutil
 import uvicorn
-from main import generate_subtitles, generate_combined_video
+from generate_result import generate_subtitles, generate_combined_video
+import os
 
 app = FastAPI()
 
@@ -40,7 +42,12 @@ async def create_video(
 	generate_subtitles(options)
 	generate_combined_video(options)
 
-	return {"message": "Subtitles generated successfully!"}
+	result_path = "./data/result.mp4"
+
+	if not os.path.exists(result_path):
+		return {"message": "Error generating subtitles!"}
+
+	return FileResponse(result_path, media_type="video/mp4", filename="result.mp4")
 
 if __name__ == "__main__":
 	uvicorn.run("server:app", host="localhost", port=8000, reload=True)
