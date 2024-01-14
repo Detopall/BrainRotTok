@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Videos from './components/Videos';
 import Subtitle from './components/Subtitle';
-import GenerateButton from './components/GenerateButton';
+import VideoGenerator from './components/VideoGenerator';
 
 function App() {
 	const [color, setColor] = useState("#000000");
@@ -29,18 +29,24 @@ function App() {
 			<p> You can also choose the subtitle color, size, and font family. </p>
 			<p> Press generate to get your new video. </p>
 
+			<div className="video-section-container">
+				<Videos setTopVideoFile={setTopVideoFile} setBottomVideoFile={setBottomVideoFile} />
+			</div>
 
-			<Videos setTopVideoFile={setTopVideoFile} setBottomVideoFile={setBottomVideoFile} />
-			<Subtitle color={color}
-				setColor={setColor}
-				size={size}
-				setSize={setSize}
-				font={font}
-				setFont={setFont}
-				fontFamily={fontFamily}
-			/>
+			<div className="subtitle-section-container">
+				<Subtitle color={color}
+					setColor={setColor}
+					size={size}
+					setSize={setSize}
+					font={font}
+					setFont={setFont}
+					fontFamily={fontFamily}
+				/>
+			</div>
 
-			<GenerateButton bottomVideo={bottomVideo} topVideo={topVideo} color={color} size={size} font={font} />
+			<div className="video-creation-container">
+				<VideoGenerator bottomVideo={bottomVideo} topVideo={topVideo} color={color} size={size} font={font} />
+			</div>
 		</div>
 	)
 }
