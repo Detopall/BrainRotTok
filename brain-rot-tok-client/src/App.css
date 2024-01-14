@@ -359,5 +359,6 @@ dialog div {
 .video-section-container, .subtitle-section-container, .video-creation-container {
 	border-radius: 0.5rem;
 	padding: 1rem;
-	border: 0.1rem solid #ccc;
+	border: 0.3rem solid #ccc;
+	width: 80%;
 }
