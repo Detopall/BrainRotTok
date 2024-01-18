@@ -254,11 +254,11 @@ dialog div {
 	animation: spin 1s linear infinite;
 }
 
-.button-video-container {
+.button-section, .button-video-container {
 	display: flex;
+	flex-flow: row wrap;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
 	gap: 2rem;
 }
 
@@ -288,6 +288,13 @@ dialog div {
 .download-button a {
 	color: #fff;
 	text-decoration: none;
+}
+
+.video-section-container, .subtitle-section-container, .video-creation-container {
+	border-radius: 0.5rem;
+	padding: 1rem;
+	border: 0.3rem solid #ccc;
+	width: 80%;
 }
 
 @media (max-width: 768px) {
@@ -355,10 +362,3 @@ dialog div {
 	}
 }
 
-
-.video-section-container, .subtitle-section-container, .video-creation-container {
-	border-radius: 0.5rem;
-	padding: 1rem;
-	border: 0.3rem solid #ccc;
-	width: 80%;
-}

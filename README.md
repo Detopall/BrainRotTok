@@ -52,4 +52,12 @@ python server.py
 
 ## Example
 
-![Example](./readme-images/example.png)
+![Example](./readme-assets/example.png)
+
+## Example video
+
+You can't hear the audio because that isn't possible in markdown, but you can find the video in the readme-assets folder
+
+<video width="640" height="480" controls>
+  <source src="./readme-assets/example-video.mp4" type="video/mp4">
+</video>

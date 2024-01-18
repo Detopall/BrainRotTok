@@ -36,7 +36,9 @@ async def create_video(
 		"font_color": color,
 		"font_size": size,
 		"font_family": font,
-		"border_size": 1
+		"border_size": 1,
+		"credit": "Made with BrainRotTok",
+		"credit_size": 15,
 	}
 
 	generate_subtitles(options)
