@@ -8,11 +8,11 @@ interface GenerateMinecraftVideo {
 	font: string;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ resultVideoUrl }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl }) => {
 	return (
 		<div>
 			<video controls width="600" height="400">
-				<source src={resultVideoUrl} type="video/mp4" />
+				<source src={videoUrl} type="video/mp4" />
 				Your browser does not support the video tag.
 			</video>
 		</div>
@@ -54,7 +54,6 @@ function GenerateMinecraftVideo({ video, subtitles, color, size, font }: Generat
 				formData.append('size', size.toString());
 				formData.append('font', font);
 				
-				console.log(formData);
 				const response = await fetch('http://localhost:8000/minecraft-generate-subtitles', {
 					method: 'POST',
 					body: formData,
@@ -65,6 +64,7 @@ function GenerateMinecraftVideo({ video, subtitles, color, size, font }: Generat
 					throw new Error(`Failed to generate subtitles: ${response.statusText}`);
 				}
 
+				
 				const resultVideoBlob = await response.blob();
 				const resultVideoObjectURL = URL.createObjectURL(resultVideoBlob);
 				setResultVideoUrl(resultVideoObjectURL);
@@ -77,7 +77,6 @@ function GenerateMinecraftVideo({ video, subtitles, color, size, font }: Generat
 			setLoading(false);
 		}
 	}
-
 
 	return (
 		<div className="button-section">

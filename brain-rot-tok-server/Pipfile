@@ -14,6 +14,7 @@ fastapi = "*"
 pydantic = "*"
 python-multipart = "*"
 whisper-timestamped = "*"
+pyttsx3 = "*"
 
 [dev-packages]
 

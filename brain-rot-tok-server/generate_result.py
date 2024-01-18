@@ -4,8 +4,8 @@ from transcribe_audio import transcribe_audio
 from create_subtitles import create_subtitles, hex_to_ffmpeg_color
 
 def generate_subtitles(customization_options):
-	audio_file = "./data/audio.mp3"
-	subtitle_file = "./data/subtitles.srt"
+	audio_file = "./data/subway/audio.mp3"
+	subtitle_file = "./data/subway/subtitles.srt"
 
 	input_video = customization_options['bottom_video']
 
@@ -20,12 +20,12 @@ def generate_combined_video(customization_options):
 
 	top_video_path = customization_options['top_video']
 	bottom_video_path = customization_options['bottom_video']
-	muted_top_video_path = "./data/muted_top_video.mp4"
-	trimmed_top_video_path = "./data/trimmed_top_video.mp4"
-	combined_video_path = "./data/combined_video.mp4"
-	subtitle_file = "./data/subtitles.srt"
-	subtitle_video_path = "./data/subtitle_video.mp4"
-	result_video = "./data/result.mp4"
+	muted_top_video_path = "./data/subway/muted_top_video.mp4"
+	trimmed_top_video_path = "./data/subway/trimmed_top_video.mp4"
+	combined_video_path = "./data/subway/combined_video.mp4"
+	subtitle_file = "./data/subway/subtitles.srt"
+	subtitle_video_path = "./data/subway/subtitle_video.mp4"
+	result_video = "./data/subway/result.mp4"
 	
 	top_video_operations(top_video_path, bottom_video_path, muted_top_video_path, trimmed_top_video_path)
 
@@ -115,7 +115,7 @@ def add_subtitle(combined_video_path, subtitle_file, customization_options, subt
 	subprocess.run(subtitle_cmd, check=True)
 
 def add_text_to_video(subtitle_video_path, result_video_path, customization_options):
-    cmd = [
+	cmd = [
 		'ffmpeg',
 		'-i', subtitle_video_path,
 		'-vf', f'drawtext=text=\'{customization_options["credit"]}\':fontcolor=white:fontsize={customization_options["credit_size"]}:box=1:boxcolor=black@0.5:boxborderw=5:x=(w-text_w)/2:y=(h-text_h)/2',
@@ -123,4 +123,4 @@ def add_text_to_video(subtitle_video_path, result_video_path, customization_opti
 		"-y", result_video_path
 	]
 
-    subprocess.run(cmd)
+	subprocess.run(cmd)
