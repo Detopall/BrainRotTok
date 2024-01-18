@@ -56,8 +56,4 @@ python server.py
 
 ## Example video
 
-You can't hear the audio because that isn't possible in markdown, but you can find the video in the readme-assets folder
-
-<video width="640" height="480" controls>
-  <source src="./readme-assets/example-video.mp4" type="video/mp4">
-</video>
+https://github.com/Detopall/BrainRotTok/assets/90131569/4239972d-19d8-444d-af16-8b81e8c76c03
