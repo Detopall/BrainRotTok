@@ -16,7 +16,7 @@ app.add_middleware(
 	allow_headers=["*"]
 )
 
-@app.post("/generate_subtitles")
+@app.post("/subway-generate-subtitles")
 async def create_video(
 	top_video: UploadFile = File(...),
 	bottom_video: UploadFile = File(...),
