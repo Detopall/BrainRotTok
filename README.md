@@ -58,4 +58,11 @@ python server.py
 
 ## Example video
 
+**Subway Surfers Example**
+
 https://github.com/Detopall/BrainRotTok/assets/90131569/4239972d-19d8-444d-af16-8b81e8c76c03
+
+**Minecraft Reddit Example**
+
+https://github.com/Detopall/BrainRotTok/assets/90131569/d84bbdfe-868d-4b7d-b5c7-c4a42c14d8da
+
