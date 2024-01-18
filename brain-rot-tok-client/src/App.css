@@ -3,6 +3,7 @@
 :root {
 	--blue: #3498db;
 	--dark-blue: #2980b9;
+	--red: #d43726;
 }
 
 body {
@@ -24,6 +25,7 @@ body {
 	flex-direction: column;
 	border-radius: 10px;
 	gap: 2rem;
+	position: relative;
 }
 
 h1 {
@@ -46,7 +48,39 @@ h1 {
 
 p {
 	color: #34495e;
-	margin-bottom: 0.25rem;
+	margin-bottom: -1rem;
+}
+
+.nav-container {
+	background-color: var(--red);
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	z-index: 1;
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+}
+
+.nav-container ul {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding-left: 0;
+	gap: 1rem;
+}
+
+.nav-container a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.nav-container a:hover {
+	color: black;
+	text-decoration: underline;
 }
 
 .video-section,
@@ -254,7 +288,8 @@ dialog div {
 	animation: spin 1s linear infinite;
 }
 
-.button-section, .button-video-container {
+.button-section,
+.button-video-container {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: center;
@@ -290,11 +325,34 @@ dialog div {
 	text-decoration: none;
 }
 
-.video-section-container, .subtitle-section-container, .video-creation-container {
+.video-section-container,
+.subtitle-section-container,
+.video-creation-container,
+.subtitle-text-section-container {
 	border-radius: 0.5rem;
 	padding: 1rem;
 	border: 0.3rem solid #ccc;
 	width: 80%;
+}
+
+.subtitle-text-section-container textarea {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	resize: vertical;
+	font-size: 14px;
+}
+
+.subtitle-text-section-container textarea:hover {
+	border-color: #999;
+}
+
+.subtitle-text-section-container textarea:focus {
+	outline: none;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.7);
 }
 
 @media (max-width: 768px) {
@@ -361,4 +419,3 @@ dialog div {
 		margin-right: 0;
 	}
 }
-

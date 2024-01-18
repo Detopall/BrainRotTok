@@ -53,7 +53,7 @@ function VideoGenerator({
 				formData.append('size', size.toString());
 				formData.append('font', font);
 
-				const response = await fetch('http://localhost:8000/generate_subtitles', {
+				const response = await fetch('http://localhost:8000/subway-generate-subtitles', {
 					method: 'POST',
 					body: formData,
 				});
@@ -103,7 +103,7 @@ function VideoGenerator({
 						<>
 							<VideoPlayer videoUrl={videoUrl} />
 							<button className="download-button">
-								<a href={videoUrl} download={`BrainRotTok-${getFormattedDateTime()}.mp4`}>
+								<a href={videoUrl} download={`BrainRotTok-Subway-${getFormattedDateTime()}.mp4`}>
 									Download
 								</a>
 							</button>
