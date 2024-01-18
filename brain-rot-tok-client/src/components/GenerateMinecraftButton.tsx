@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 
 interface GenerateMinecraftVideo {
 	video: HTMLVideoElement | null;
+	subtitles: string;
 	color: string;
 	size: number;
 	font: string;
