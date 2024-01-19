@@ -2,7 +2,7 @@
 
 ## What is BrainRotTok?
 
-BrainRotTok allows you to create those iconic TikTok videos where one half of the screen is a random subway surfers video and the other half is another random video with subtitles. The other version is those Mincecraft parkour videos with Reddit subtitles.
+BrainRotTok allows you to create those iconic TikTok videos where one half of the screen is a random subway surfers video and the other half is another random video with subtitles. The other version is those Mincecraft parkour videos with Reddit subtitles. You can also just upload a basic video and create subtitles for it.
 
 ## What is brain rot?
 
@@ -52,11 +52,16 @@ python server.py
 
 ## Examples
 
+![Basic Example](./readme-assets/basic-example.png)
+
 ![Subway Surfers Example](./readme-assets/subway-surfers-example.png)
 
 ![Minecraft Reddit Example](./readme-assets/minecraft-reddit-example.png)
 
 ## Example video
+
+**Basic Example**
+
 
 **Subway Surfers Example**
 
@@ -65,4 +70,3 @@ https://github.com/Detopall/BrainRotTok/assets/90131569/4239972d-19d8-444d-af16-
 **Minecraft Reddit Example**
 
 https://github.com/Detopall/BrainRotTok/assets/90131569/d84bbdfe-868d-4b7d-b5c7-c4a42c14d8da
-

@@ -6,6 +6,9 @@ function Nav() {
 			<div className="nav-container">
 				<nav>
 					<ul>
+						<li><Link to="/">
+							Basic Video Type
+						</Link></li>
 						<li><Link to="/subway-surfers-type">
 							Subway Surfers Type
 						</Link></li>
