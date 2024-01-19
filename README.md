@@ -62,6 +62,7 @@ python server.py
 
 **Basic Example**
 
+https://github.com/Detopall/BrainRotTok/assets/90131569/74f67256-9bc4-43ed-81a2-1d37dd1f5411
 
 **Subway Surfers Example**
 
