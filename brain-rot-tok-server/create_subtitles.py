@@ -1,5 +1,3 @@
-from transcribe_audio import transcribe_audio
-
 def create_subtitles(transcription, subtitle_file_path):
 	def convert_to_srt_time(time):
 		milliseconds = int((time - int(time)) * 1000)
