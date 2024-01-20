@@ -1,7 +1,7 @@
 import os
-from create_subtitles import hex_to_ffmpeg_color, create_subtitles
-from transcribe_audio import transcribe_audio
-from video_to_audio import extract_audio
+from utils.create_subtitles import hex_to_ffmpeg_color, create_subtitles
+from utils.transcribe_audio import transcribe_audio
+from utils.video_to_audio import extract_audio
 import subprocess
 
 

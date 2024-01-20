@@ -4,7 +4,7 @@ from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.exceptions import HTTPException
 import shutil
 import uvicorn
-from generate_result import generate_combined_video
+from generate_subway_subtitles import generate_subway_subtitles
 from generate_minecraft_subtitles import generate_minecraft_subtitles
 from generate_basic_subtitles import generate_basic_subtitles
 from generate_rumble_clips import generate_rumble_clips
@@ -50,7 +50,7 @@ async def create_subway_video(
 		"credit_size": 15,
 	}
 
-	result_video_path = generate_combined_video(options)
+	result_video_path = generate_subway_subtitles(options)
 
 	if not os.path.exists(result_video_path):
 		return {"message": "Error generating subtitles!"}
@@ -100,14 +100,16 @@ async def create_basic_video(
 	video: UploadFile = File(...),
 	color: str = Form(...),
 	size: int = Form(...),
-	font: str = Form(...)
+	font: str = Form(...),
+	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
 	# Save the videos
-	with open("./data/basic/video.mp4", "wb") as buffer:
+	basic_video_path = "./data/basic/videos/video.mp4"
+	with open(basic_video_path, "wb") as buffer:
 		shutil.copyfileobj(video.file, buffer)
 
 	options = {
-		"video": "./data/basic/video.mp4",
+		"video": basic_video_path,
 		"font_color": color,
 		"font_size": size,
 		"font_family": font,
@@ -116,15 +118,15 @@ async def create_basic_video(
 		"credit_size": 15,
 	}
 
-	generate_basic_subtitles(options)
-
-	result_path = "./data/basic/result.mp4"
+	result_video_path = generate_basic_subtitles(options)
 
 
-	if not os.path.exists(result_path):
+	if not os.path.exists(result_video_path):
 		return {"message": "Error generating subtitles!"}
+	
+	background_tasks.add_task(remove_content_from_dir, "./data/basic/videos")
 
-	return FileResponse(result_path, media_type="video/mp4", filename="result.mp4")
+	return FileResponse(result_video_path, media_type="video/mp4", filename="result.mp4")
 
 
 @app.post("/rumble-generate-subtitles")

@@ -1,11 +1,11 @@
 import subprocess
-from video_to_audio import extract_audio
-from transcribe_audio import transcribe_audio
-from create_subtitles import create_subtitles, hex_to_ffmpeg_color
+from utils.video_to_audio import extract_audio
+from utils.transcribe_audio import transcribe_audio
+from utils.create_subtitles import create_subtitles, hex_to_ffmpeg_color
 import os
 
 
-def generate_combined_video(customization_options):
+def generate_subway_subtitles(customization_options):
 	customization_options['font_color'] = hex_to_ffmpeg_color(customization_options['font_color'])
 	audio_file = "./data/subway/audio.mp3"
 	subtitle_file = "./data/subway/subtitles.srt"
