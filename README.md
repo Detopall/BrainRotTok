@@ -83,3 +83,4 @@ https://github.com/Detopall/BrainRotTok/assets/90131569/d84bbdfe-868d-4b7d-b5c7-
 
 **Rumble Video Example**
 
+https://github.com/Detopall/BrainRotTok/assets/90131569/32b60a46-5ef5-48d8-ba61-eed8751b0854
