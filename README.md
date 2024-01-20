@@ -2,7 +2,7 @@
 
 ## What is BrainRotTok?
 
-BrainRotTok allows you to create those iconic TikTok videos where one half of the screen is a random subway surfers video and the other half is another random video with subtitles. The other version is those Mincecraft parkour videos with Reddit subtitles. You can also just upload a basic video and create subtitles for it.
+BrainRotTok allows you to create those iconic TikTok videos with subtitles. There are different types of videos you can create, you can find the list of them below in the "What can you do with this?" section.
 
 ## What is brain rot?
 
@@ -16,7 +16,10 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 
 ## What can you do with this?
 
-You can upload you own videos and the application will automatically generate the subtitles for you. You can customize the subtitles (color, font, size, etc.) and the position of the video. You can also choose to upload your own subtitles.
+- **Basic**: a video with subtitles underneath
+- **Subway Surfers**: a top and bottom video with subtitles for the bottom video and the top video is muted
+- **Minecraft Reddit**: a background video with subtitles (provided by you) in the middle and the subtitles are spoken by a text-to-speech voice
+- **Rumble Video**: a Rumble video link is provided and you can choose between different clips from the video. The subtitles are automatically generated and a zip folder is returned with the video and the subtitles.
 
 ## What technologies are used?
 
@@ -29,16 +32,6 @@ You can upload you own videos and the application will automatically generate th
 
 ## How to run this?
 
-### Client
-
-Execute the following commands:
-
-```bash
-cd ./brain-rot-tok-client
-npm install
-npm run dev
-```
-
 ### Server
 
 Execute the following commands:
@@ -50,6 +43,20 @@ pipenv shell
 python server.py
 ```
 
+### Client
+
+Execute the following commands:
+
+```bash
+cd ./brain-rot-tok-client
+npm install
+npm run dev
+```
+
+Then just open the link that is printed in the console. This should be `http://127.0.0.1:5173/`
+
+After the server is running, you can go to the client and start using the website.
+
 ## Examples
 
 ![Basic Example](./readme-assets/basic-example.png)
@@ -57,6 +64,8 @@ python server.py
 ![Subway Surfers Example](./readme-assets/subway-surfers-example.png)
 
 ![Minecraft Reddit Example](./readme-assets/minecraft-reddit-example.png)
+
+![Rumble Video Example](./readme-assets/rumble-video-example.png)
 
 ## Example video
 
@@ -71,3 +80,6 @@ https://github.com/Detopall/BrainRotTok/assets/90131569/4239972d-19d8-444d-af16-
 **Minecraft Reddit Example**
 
 https://github.com/Detopall/BrainRotTok/assets/90131569/d84bbdfe-868d-4b7d-b5c7-c4a42c14d8da
+
+**Rumble Video Example**
+
