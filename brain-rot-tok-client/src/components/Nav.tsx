@@ -1,28 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+const navLinks = [
+	{ path: '/', text: 'Basic Video Type' },
+	{ path: '/subway-surfers-type', text: 'Subway Surfers Type' },
+	{ path: '/minecraft-reddit-type', text: 'Minecraft-Reddit Type' },
+	{ path: '/rumble-video-type', text: 'Rumble Video Type' },
+];
 
 function Nav() {
+	const location = useLocation();
+
 	return (
-		<>
-			<div className="nav-container">
-				<nav>
-					<ul>
-						<li><Link to="/">
-							Basic Video Type
-						</Link></li>
-						<li><Link to="/subway-surfers-type">
-							Subway Surfers Type
-						</Link></li>
-						<li><Link to="/minecraft-reddit-type">
-							Minecraft-Reddit Type
-						</Link></li>
-						<li><Link to="/rumble-video-type">
-							Rumble Video Type
-						</Link></li>
-					</ul>
-				</nav>
-			</div>
-		</>
-	)
+		<div className="nav-container">
+			<nav>
+				<ul>
+					{navLinks.map((link) => (
+						<li key={link.path}>
+							<Link to={link.path} className={location.pathname === link.path ? 'nav-link active' : 'nav-link'}>
+								{link.text}
+							</Link>
+						</li>
+					))}
+				</ul>
+			</nav>
+		</div>
+	);
 }
 
 export default Nav;

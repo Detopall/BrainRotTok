@@ -81,6 +81,11 @@ p {
 	transition: color 0.3s ease;
 }
 
+.nav-container a.active {
+	color: var(--red);
+	text-decoration: underline;
+}
+
 .nav-container a:hover {
 	color: var(--red);
 }
