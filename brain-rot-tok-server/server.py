@@ -11,6 +11,7 @@ from generate_rumble_clips import generate_rumble_clips, remove_clips_dir
 import os
 import io
 import zipfile
+import json
 
 app = FastAPI()
 
@@ -168,6 +169,7 @@ async def create_rumble_video(request_data: dict = Body(...)):
 	except Exception as e:
 		# Handle exceptions appropriately
 		raise HTTPException(status_code=500, detail=str(e))
+	
 
 
 if __name__ == "__main__":

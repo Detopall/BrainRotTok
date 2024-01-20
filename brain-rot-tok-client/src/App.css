@@ -3,7 +3,7 @@
 :root {
 	--blue: #3498db;
 	--dark-blue: #2980b9;
-	--red: #d43726;
+	--red: #f53823;
 }
 
 body {
@@ -52,35 +52,37 @@ p {
 }
 
 .nav-container {
-	background-color: var(--red);
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	z-index: 1;
-	position: absolute;
-	top: 0.5rem;
-	left: 0.5rem;
+	background-color: #333;
+	padding: 10px 0;
+	border-radius: 8px;
+}
+
+.nav-container nav {
+	display: flex;
+	justify-content: center;
 }
 
 .nav-container ul {
 	list-style: none;
+	padding: 0;
+	margin: 0;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	padding-left: 0;
-	gap: 1rem;
+}
+
+.nav-container li {
+	margin: 0 10px;
 }
 
 .nav-container a {
 	text-decoration: none;
-	color: #fff;
+	color: white;
 	font-weight: bold;
 	font-size: 16px;
+	transition: color 0.3s ease;
 }
 
 .nav-container a:hover {
-	color: black;
-	text-decoration: underline;
+	color: var(--red);
 }
 
 .video-section,
@@ -352,7 +354,75 @@ dialog div {
 
 .subtitle-text-section-container textarea:focus {
 	outline: none;
-	box-shadow: 0 0 5px rgba(0, 123, 255, 0.7);
+	box-shadow: 0 0 5px var(--blue);
+}
+
+.video-link-label {
+	display: block;
+	font-size: 16px;
+	margin-bottom: 8px;
+	color: #333;
+}
+
+#video-link-input {
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+#video-link-input:focus {
+	outline: none;
+	border-color: #007bff;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.video-clips-container {
+	border-radius: 0.5rem;
+	padding: 1rem;
+	border: 0.3rem solid #ccc;
+	width: 80%;
+}
+
+.video-clips-container p {
+	margin-bottom: 0.5rem;
+}
+
+.clip-item {
+	display: flex;
+	justify-content: center;
+	flex-flow: column wrap;
+	margin-bottom: 15px;
+	width: 50%;
+}
+
+.clip-item label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.clip-item input {
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.add-clip-button {
+	margin-top: 10px;
+}
+
+.clips-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.clips-list li {
+	margin-bottom: 5px;
 }
 
 @media (max-width: 768px) {

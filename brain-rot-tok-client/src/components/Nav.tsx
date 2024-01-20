@@ -15,6 +15,9 @@ function Nav() {
 						<li><Link to="/minecraft-reddit-type">
 							Minecraft-Reddit Type
 						</Link></li>
+						<li><Link to="/rumble-video-type">
+							Rumble Video Type
+						</Link></li>
 					</ul>
 				</nav>
 			</div>
