@@ -1,5 +1,4 @@
 import os
-import shutil
 from create_subtitles import hex_to_ffmpeg_color, create_subtitles
 from transcribe_audio import transcribe_audio
 from video_to_audio import extract_audio

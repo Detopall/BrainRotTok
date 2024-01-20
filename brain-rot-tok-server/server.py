@@ -31,15 +31,17 @@ async def create_subway_video(
 	font: str = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
+	top_video_path = "./data/subway/videos/top_video.mp4"
+	bottom_video_path = "./data/subway/videos/bottom_video.mp4"
 	# Save the videos
-	with open("./data/subway/top_video.mp4", "wb") as buffer:
+	with open(top_video_path, "wb") as buffer:
 		shutil.copyfileobj(top_video.file, buffer)
-	with open("./data/subway/bottom_video.mp4", "wb") as buffer:
+	with open(bottom_video_path, "wb") as buffer:
 		shutil.copyfileobj(bottom_video.file, buffer)
 
 	options = {
-		"top_video": "./data/subway/top_video.mp4",
-		"bottom_video": "./data/subway/bottom_video.mp4",
+		"top_video": top_video_path,
+		"bottom_video": bottom_video_path,
 		"font_color": color,
 		"font_size": size,
 		"font_family": font,
@@ -49,7 +51,6 @@ async def create_subway_video(
 	}
 
 	result_video_path = generate_combined_video(options)
-	print(result_video_path)
 
 	if not os.path.exists(result_video_path):
 		return {"message": "Error generating subtitles!"}
@@ -65,14 +66,17 @@ async def create_minecraft_video(
 	subtitles: str = Form(...),
 	color: str = Form(...),
 	size: int = Form(...),
-	font: str = Form(...)
+	font: str = Form(...),
+	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
+	
+	background_video_path = "./data/minecraft/videos/background_video.mp4"
 	# Save the videos
-	with open("./data/minecraft/background_video.mp4", "wb") as buffer:
+	with open(background_video_path, "wb") as buffer:
 		shutil.copyfileobj(video.file, buffer)
 
 	options = {
-		"background_video": "./data/minecraft/background_video.mp4",
+		"background_video": background_video_path,
 		"font_color": color,
 		"font_size": size,
 		"font_family": font,
@@ -81,15 +85,14 @@ async def create_minecraft_video(
 		"credit_size": 15,
 	}
 
-	generate_minecraft_subtitles(options, subtitles)
+	result_video_path = generate_minecraft_subtitles(options, subtitles)
 
-	result_path = "./data/minecraft/result.mp4"
-
-
-	if not os.path.exists(result_path):
+	if not os.path.exists(result_video_path):
 		return {"message": "Error generating subtitles!"}
 
-	return FileResponse(result_path, media_type="video/mp4", filename="result.mp4")
+	background_tasks.add_task(remove_content_from_dir, "./data/minecraft/videos")
+
+	return FileResponse(result_video_path, media_type="video/mp4", filename="result.mp4")
 
 
 @app.post("/basic-generate-subtitles")

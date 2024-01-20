@@ -16,7 +16,6 @@ def generate_combined_video(customization_options):
 
 	extract_audio(bottom_video_path, audio_file)
 	transcription = transcribe_audio(audio_file)
-	
 	create_subtitles(transcription, subtitle_file)
 	
 	trimmed_output_filepath = top_video_operations(top_video_path, bottom_video_path, output_directory)
@@ -34,7 +33,6 @@ def generate_combined_video(customization_options):
 
 
 def top_video_operations(top_video_path, bottom_video_path, output_directory):
-	print("muted top")
 	muted_output_filepath = os.path.join(output_directory, 'top_video_muted.mp4')
 
 	trimmed_output_filepath = os.path.join(output_directory, 'top_video_muted_trimmed.mp4')
@@ -71,7 +69,6 @@ def top_video_operations(top_video_path, bottom_video_path, output_directory):
 
 
 def bottom_video_operations(bottom_video_path):
-	print("bottom operations")
 	bottom_video_height = int(subprocess.check_output([
 		"ffprobe",
 		"-v", "error",
@@ -93,7 +90,6 @@ def bottom_video_operations(bottom_video_path):
 	return bottom_video_width, bottom_video_height
 
 def combination_video(trimmed_top_video_path, bottom_video_path, bottom_video_width, bottom_video_height, output_directory):
-	print("combining videos")
 	combined_output_filepath = os.path.join(output_directory, 'top_video_muted_trimmed_combined.mp4')
 
 	combine_cmd = [
@@ -112,7 +108,6 @@ def combination_video(trimmed_top_video_path, bottom_video_path, bottom_video_wi
 
 
 def add_subtitle(combined_video_path, subtitle_file, customization_options, output_directory):
-	print("add subtitle")
 	subtitle_output_filepath = os.path.join(output_directory, 'combined_subtitle.mp4')
 
 	subtitle_cmd = [
@@ -129,7 +124,6 @@ def add_subtitle(combined_video_path, subtitle_file, customization_options, outp
 	return subtitle_output_filepath
 
 def add_text_to_video(subtitle_output_filepath, customization_options, output_directory):
-	print("add text to video")
 	result_video_path = os.path.join(output_directory, 'combined_subtitle_text.mp4')
 
 	cmd = [
