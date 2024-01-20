@@ -1,17 +1,16 @@
-from fastapi import FastAPI, File, UploadFile, Form, Body
+from fastapi import FastAPI, File, UploadFile, Form, Body, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.exceptions import HTTPException
 import shutil
 import uvicorn
-from generate_result import generate_subtitles, generate_combined_video
+from generate_result import generate_combined_video
 from generate_minecraft_subtitles import generate_minecraft_subtitles
 from generate_basic_subtitles import generate_basic_subtitles
-from generate_rumble_clips import generate_rumble_clips, remove_clips_dir
+from generate_rumble_clips import generate_rumble_clips
 import os
 import io
 import zipfile
-import json
 
 app = FastAPI()
 
@@ -29,7 +28,8 @@ async def create_subway_video(
 	bottom_video: UploadFile = File(...),
 	color: str = Form(...),
 	size: int = Form(...),
-	font: str = Form(...)
+	font: str = Form(...),
+	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
 	# Save the videos
 	with open("./data/subway/top_video.mp4", "wb") as buffer:
@@ -48,15 +48,15 @@ async def create_subway_video(
 		"credit_size": 15,
 	}
 
-	generate_subtitles(options)
-	generate_combined_video(options)
+	result_video_path = generate_combined_video(options)
+	print(result_video_path)
 
-	result_path = "./data/subway/result.mp4"
-
-	if not os.path.exists(result_path):
+	if not os.path.exists(result_video_path):
 		return {"message": "Error generating subtitles!"}
+	
+	background_tasks.add_task(remove_content_from_dir, "./data/subway/videos")
 
-	return FileResponse(result_path, media_type="video/mp4", filename="result.mp4")
+	return FileResponse(result_video_path, media_type="video/mp4", filename="result.mp4")
 
 
 @app.post("/minecraft-generate-subtitles")
@@ -160,7 +160,7 @@ async def create_rumble_video(request_data: dict = Body(...)):
 		zip_buffer.seek(0)		
 
 		# remove the clips directory content
-		remove_clips_dir()
+		remove_content_from_dir("./data/rumble/clips")
 
 		# Return the zip archive as a StreamingResponse
 		return StreamingResponse(io.BytesIO(zip_buffer.read()), media_type="application/zip", headers={
@@ -169,6 +169,18 @@ async def create_rumble_video(request_data: dict = Body(...)):
 	except Exception as e:
 		# Handle exceptions appropriately
 		raise HTTPException(status_code=500, detail=str(e))
+
+
+def remove_content_from_dir(folder):
+	for filename in os.listdir(folder):
+		file_path = os.path.join(folder, filename)
+		try:
+			if os.path.isfile(file_path) or os.path.islink(file_path):
+				os.unlink(file_path)
+			elif os.path.isdir(file_path):
+				shutil.rmtree(file_path)
+		except Exception as e:
+			print('Failed to delete %s. Reason: %s' % (file_path, e))
 	
 
 
