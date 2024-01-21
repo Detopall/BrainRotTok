@@ -18,6 +18,8 @@ async def create_rumble_video(request_data: dict = Body(...)):
 	color = request_data.get("color", "")
 	size = request_data.get("size", 0)
 	font = request_data.get("font", "")
+	credit = request_data.get("credit", "")
+	credit_size = request_data.get("credit_size", 0)
 	clips = request_data.get("clips", [])
 
 	options = {
@@ -27,8 +29,8 @@ async def create_rumble_video(request_data: dict = Body(...)):
 		"font_size": size,
 		"font_family": font,
 		"border_size": 1,
-		"credit": "Made with BrainRotTok",
-		"credit_size": 15,
+		"credit": credit,
+		"credit_size": credit_size,
 	}
 
 	try:

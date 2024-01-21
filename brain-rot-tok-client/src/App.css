@@ -186,7 +186,15 @@ input[type="file"] {
 	box-shadow: 0 0 5px rgba(0, 123, 255, 0.7);
 }
 
-.subtitle-section input#size {
+.subtitle-preview {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.subtitle-section .input-size {
 	font-size: 16px;
 	padding: 10px;
 	border: 1px solid #ddd;

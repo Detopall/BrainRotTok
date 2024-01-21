@@ -1,6 +1,6 @@
 import Videos from './components/Videos';
 import Subtitle from './components/Subtitle';
-import VideoGenerator from './components/VideoGenerator';
+import GenerateSubwayButton from './components/GenerateSubwayButton';
 import { useState } from 'react';
 
 function SubwayVideoType() {
@@ -8,6 +8,8 @@ function SubwayVideoType() {
 	const [size, setSize] = useState(24);
 	const [font, setFont] = useState("Arial");
 	const fontFamily = ["Arial", "Times New Roman", "Verdana", "Courier New", "Impact", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Arial Black", "Lucida Console"];
+	const [credit, setCredit] = useState("Subway Surfers");
+	const [creditSize, setCreditSize] = useState(24);
 	const [topVideo, setTopVideo] = useState<HTMLVideoElement | null>(null);
 	const [bottomVideo, setBottomVideo] = useState<HTMLVideoElement | null>(null);
 
@@ -38,11 +40,15 @@ function SubwayVideoType() {
 					font={font}
 					setFont={setFont}
 					fontFamily={fontFamily}
+					credit={credit}
+					setCredit={setCredit}
+					creditSize={creditSize}
+					setCreditSize={setCreditSize}
 				/>
 			</div>
 
 			<div className="video-creation-container">
-				<VideoGenerator bottomVideo={bottomVideo} topVideo={topVideo} color={color} size={size} font={font} />
+				<GenerateSubwayButton bottomVideo={bottomVideo} topVideo={topVideo} color={color} size={size} font={font} credit={credit} creditSize={creditSize} />
 			</div>
 		</>
 	)

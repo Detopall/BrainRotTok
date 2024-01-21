@@ -10,6 +10,8 @@ function BasicVideoType() {
 	const [size, setSize] = useState(24);
 	const [font, setFont] = useState("Arial");
 	const fontFamily = ["Arial", "Times New Roman", "Verdana", "Courier New", "Impact", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Arial Black", "Lucida Console"];
+	const [credit, setCredit] = useState("");
+	const [creditSize, setCreditSize] = useState(24);
 	const [videoSrc, setVideoSrc] = useState<string>("");
 	const [video, setVideo] = useState<HTMLVideoElement | null>(null);
 
@@ -53,11 +55,15 @@ function BasicVideoType() {
 					font={font}
 					setFont={setFont}
 					fontFamily={fontFamily}
+					credit={credit}
+					setCreditSize={setCreditSize}
+					setCredit={setCredit}
+					creditSize={creditSize}
 				/>
 			</div>
 
 			<div className="video-creation-container">
-				<GenerateBasicButton video={video} color={color} size={size} font={font} />
+				<GenerateBasicButton video={video} color={color} size={size} font={font} credit={credit} creditSize={creditSize} />
 			</div>
 		</>
 	)

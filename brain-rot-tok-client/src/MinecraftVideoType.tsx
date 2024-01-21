@@ -9,6 +9,8 @@ function MinecraftVideoType() {
 	const [size, setSize] = useState(24);
 	const [font, setFont] = useState("Arial");
 	const fontFamily = ["Arial", "Times New Roman", "Verdana", "Courier New", "Impact", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Arial Black", "Lucida Console"];
+	const [credit, setCredit] = useState("");
+	const [creditSize, setCreditSize] = useState(24);
 	const [videoSrc, setVideoSrc] = useState<string>("");
 	const [video, setVideo] = useState<HTMLVideoElement | null>(null);
 	const [subtitles, setSubtitles] = useState<string>("");
@@ -61,11 +63,15 @@ function MinecraftVideoType() {
 					font={font}
 					setFont={setFont}
 					fontFamily={fontFamily}
+					credit={credit}
+					setCredit={setCredit}
+					creditSize={creditSize}
+					setCreditSize={setCreditSize}
 				/>
 			</div>
 
 			<div className="video-creation-container">
-				<GenerateMinecraftButton video={video} subtitles={subtitles} color={color} size={size} font={font} />
+				<GenerateMinecraftButton video={video} subtitles={subtitles} color={color} size={size} font={font} credit={credit} creditSize={creditSize} />
 			</div>
 		</>
 	)

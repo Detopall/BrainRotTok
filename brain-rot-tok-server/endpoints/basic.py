@@ -14,6 +14,8 @@ async def create_basic_video(
 	color: str = Form(...),
 	size: int = Form(...),
 	font: str = Form(...),
+	credit: str = Form(...),
+	credit_size: int = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
 	# Save the videos
@@ -27,8 +29,8 @@ async def create_basic_video(
 		"font_size": size,
 		"font_family": font,
 		"border_size": 1,
-		"credit": "Made with BrainRotTok",
-		"credit_size": 25,
+		"credit": credit,
+		"credit_size": credit_size,
 	}
 
 	result_video_path = generate_basic_subtitles(options)

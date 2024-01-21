@@ -9,6 +9,8 @@ function RumbleVideoType() {
 	const [size, setSize] = useState(24);
 	const [font, setFont] = useState("Arial");
 	const fontFamily = ["Arial", "Times New Roman", "Verdana", "Courier New", "Impact", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Arial Black", "Lucida Console"];
+	const [credit, setCredit] = useState("");
+	const [creditSize, setCreditSize] = useState(24);
 	const [videoUrl, setVideoUrl] = useState<string>("");
 	const [clips, setClips] = useState([
 		{
@@ -42,13 +44,17 @@ function RumbleVideoType() {
 					font={font}
 					setFont={setFont}
 					fontFamily={fontFamily}
+					credit={credit}
+					setCredit={setCredit}
+					creditSize={creditSize}
+					setCreditSize={setCreditSize}
 				/>
 			</div>
 
 			<VideoClipsForm clips={clips} setClips={setClips} />
 
 			<div className="video-creation-container">
-				<GenerateRumbleButton videoUrl={videoUrl} clips={clips} color={color} size={size} font={font} />
+				<GenerateRumbleButton videoUrl={videoUrl} clips={clips} color={color} size={size} font={font} credit={credit} creditSize={creditSize} />
 			</div>
 		</>
 	)

@@ -7,10 +7,12 @@ interface GenerateRubmleVideo {
 	color: string;
 	size: number;
 	font: string;
+	credit: string;
+	creditSize: number;
 }
 
 
-function GenerateRubmleVideo({ videoUrl, clips, color, size, font }: GenerateRubmleVideo) {
+function GenerateRubmleVideo({ videoUrl, clips, color, size, font, credit, creditSize }: GenerateRubmleVideo) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const [loading, setLoading] = useState(false);
 
@@ -38,6 +40,8 @@ function GenerateRubmleVideo({ videoUrl, clips, color, size, font }: GenerateRub
 					color: color,
 					size: size,
 					font: font,
+					credit: credit,
+					credit_size: creditSize,
 				}
 
 				const response = await fetch('http://localhost:8000/rumble/generate-subtitles', {

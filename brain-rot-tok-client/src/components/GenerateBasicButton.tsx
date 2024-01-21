@@ -5,6 +5,12 @@ interface GenerateBasicVideo {
 	color: string;
 	size: number;
 	font: string;
+	credit: string;
+	creditSize: number;
+}
+
+interface VideoPlayerProps {
+	videoUrl: string;
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl }) => {
@@ -18,7 +24,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl }) => {
 	);
 };
 
-function BasicVideoType({ video, color, size, font }: GenerateBasicVideo) {
+function BasicVideoType({ video, color, size, font, credit, creditSize }: GenerateBasicVideo) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const [loading, setLoading] = useState(false);
 	const [resultVideoUrl, setResultVideoUrl] = useState<string | null>(null);
@@ -50,6 +56,8 @@ function BasicVideoType({ video, color, size, font }: GenerateBasicVideo) {
 				formData.append('color', color);
 				formData.append('size', size.toString());
 				formData.append('font', font);
+				formData.append('credit', credit);
+				formData.append('credit_size', creditSize.toString());
 
 				const response = await fetch('http://localhost:8000/basic/generate-subtitles', {
 					method: 'POST',

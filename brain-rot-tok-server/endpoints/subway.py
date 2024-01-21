@@ -15,6 +15,8 @@ async def create_subway_video(
 	color: str = Form(...),
 	size: int = Form(...),
 	font: str = Form(...),
+	credit: str = Form(...),
+	credit_size: int = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
 	top_video_path = "./data/subway/videos/top_video.mp4"
@@ -32,8 +34,8 @@ async def create_subway_video(
 		"font_size": size,
 		"font_family": font,
 		"border_size": 1,
-		"credit": "Made with BrainRotTok",
-		"credit_size": 15,
+		"credit": credit,
+		"credit_size": credit_size,
 	}
 
 	result_video_path = generate_subway_subtitles(options)

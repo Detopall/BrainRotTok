@@ -21,6 +21,8 @@ interface VideoGeneratorProps {
 	color: string;
 	size: number;
 	font: string;
+	credit: string;
+	creditSize: number;
 }
 
 function VideoGenerator({
@@ -29,6 +31,8 @@ function VideoGenerator({
 	color,
 	size,
 	font,
+	credit,
+	creditSize,
 }: VideoGeneratorProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const [loading, setLoading] = useState(false);
@@ -52,6 +56,8 @@ function VideoGenerator({
 				formData.append('color', color);
 				formData.append('size', size.toString());
 				formData.append('font', font);
+				formData.append('credit', credit);
+				formData.append('credit_size', creditSize.toString());
 
 				const response = await fetch('http://localhost:8000/subway/generate-subtitles', {
 					method: 'POST',

@@ -15,6 +15,8 @@ async def create_minecraft_video(
 	color: str = Form(...),
 	size: int = Form(...),
 	font: str = Form(...),
+	credit: str = Form(...),
+	credit_size: int = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
 	
@@ -29,8 +31,8 @@ async def create_minecraft_video(
 		"font_size": size,
 		"font_family": font,
 		"border_size": 1,
-		"credit": "Made with BrainRotTok",
-		"credit_size": 15,
+		"credit": credit,
+		"credit_size": credit_size,
 	}
 
 	result_video_path = generate_minecraft_subtitles(options, subtitles)
