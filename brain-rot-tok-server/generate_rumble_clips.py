@@ -71,7 +71,7 @@ def add_text_to_video(video_path, customization_options):
 	text_cmd = [
 		"ffmpeg",
 		"-i", video_path,
-		"-vf", f"drawtext=fontfile={customization_options['font_family']}:text='{customization_options['credit']}':fontcolor=white:fontsize={customization_options['credit_size']}:x=(w-text_w)/2:y=(h-text_h)-20",
+		'-vf', f'drawtext=text=\'{customization_options["credit"]}\':fontcolor=white:fontsize={customization_options["credit_size"]}:box=1:boxcolor=black@0.5:boxborderw=5:x=(w-text_w)/2:y=h-text_h-10',
 		"-c:a", "copy",
 		'-y', output_filepath
 	]

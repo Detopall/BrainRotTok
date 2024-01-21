@@ -53,7 +53,7 @@ function VideoGenerator({
 				formData.append('size', size.toString());
 				formData.append('font', font);
 
-				const response = await fetch('http://localhost:8000/subway-generate-subtitles', {
+				const response = await fetch('http://localhost:8000/subway/generate-subtitles', {
 					method: 'POST',
 					body: formData,
 				});

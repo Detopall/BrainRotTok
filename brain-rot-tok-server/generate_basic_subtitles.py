@@ -40,17 +40,15 @@ def add_subtitle(video_path, subtitle_file, customization_options, output_direct
 
 
 def add_text_to_video(subtitle_output_path, customization_options, output_directory):
-	result_video = os.path.join(output_directory, 'result.mp4')
-	
-	# Add the text to the video
-	text_cmd = [
-		"ffmpeg",
-		"-i", subtitle_output_path,
-		"-vf", f"drawtext=fontfile={customization_options['font_family']}:text='{customization_options['credit']}':fontcolor=white:fontsize={customization_options['credit_size']}:x=(w-text_w)/2:y=(h-text_h)-20",
-		"-c:a", "copy",
-		"-y", result_video
+	result_video_path = os.path.join(output_directory, 'result.mp4')
+	cmd = [
+		'ffmpeg',
+		'-i', subtitle_output_path,
+		'-vf', f'drawtext=text=\'{customization_options["credit"]}\':fontcolor=white:fontsize={customization_options["credit_size"]}:box=1:boxcolor=black@0.5:boxborderw=5:x=(w-text_w)/2:y=h-th-10',
+		'-codec:a', 'copy',
+		"-y", result_video_path
 	]
 
-	subprocess.run(text_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-	return result_video
+	return result_video_path

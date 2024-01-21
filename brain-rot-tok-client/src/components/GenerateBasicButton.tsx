@@ -51,7 +51,7 @@ function BasicVideoType({ video, color, size, font }: GenerateBasicVideo) {
 				formData.append('size', size.toString());
 				formData.append('font', font);
 
-				const response = await fetch('http://localhost:8000/basic-generate-subtitles', {
+				const response = await fetch('http://localhost:8000/basic/generate-subtitles', {
 					method: 'POST',
 					body: formData,
 				});

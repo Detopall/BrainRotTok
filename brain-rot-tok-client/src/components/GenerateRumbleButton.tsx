@@ -40,7 +40,7 @@ function GenerateRubmleVideo({ videoUrl, clips, color, size, font }: GenerateRub
 					font: font,
 				}
 
-				const response = await fetch('http://localhost:8000/rumble-generate-subtitles', {
+				const response = await fetch('http://localhost:8000/rumble/generate-subtitles', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

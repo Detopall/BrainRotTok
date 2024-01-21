@@ -54,7 +54,7 @@ function GenerateMinecraftVideo({ video, subtitles, color, size, font }: Generat
 				formData.append('size', size.toString());
 				formData.append('font', font);
 				
-				const response = await fetch('http://localhost:8000/minecraft-generate-subtitles', {
+				const response = await fetch('http://localhost:8000/minecraft/generate-subtitles', {
 					method: 'POST',
 					body: formData,
 				});
