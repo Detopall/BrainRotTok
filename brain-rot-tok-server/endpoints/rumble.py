@@ -3,8 +3,7 @@ from fastapi.responses import FileResponse, StreamingResponse
 from fastapi import APIRouter
 from generate_rumble_clips import generate_rumble_clips
 from endpoints.utils.remove_content_from_dir import remove_content_from_dir
-import os
-import shutil
+from endpoints.utils.webscraping_rumble_link import rumble_link_scraper
 import io
 import zipfile
 
@@ -34,6 +33,10 @@ async def create_rumble_video(request_data: dict = Body(...)):
 	}
 
 	try:
+		# scrape the web for the rumble link
+		options["video_url"] = await rumble_link_scraper(video_url)
+
+		# Generate the clips
 		clips = generate_rumble_clips(options)
 		
 		# Create a zip archive in memory

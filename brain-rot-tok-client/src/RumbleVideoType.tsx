@@ -29,7 +29,7 @@ function RumbleVideoType() {
 
 			<div className="video-section-container">
 				<label className="video-link-label" htmlFor="video-link-input">Insert Rumble video link</label>
-				<input type="text" id="video-link-input" placeholder='https://hugh.cdn.rumble.cloud/video/s8/2/h/x/0/i/hx0ip.caa.rec.mp4' onChange={(e) => {
+				<input type="text" id="video-link-input" placeholder='https://rumble.com/v477gef-live-iowa-caucus-results-2024.html' onChange={(e) => {
 					setVideoUrl(e.target.value);
 				}}/>
 				<video id="video" className="video" src={videoUrl} controls />

@@ -15,6 +15,9 @@ pydantic = "*"
 python-multipart = "*"
 whisper-timestamped = "*"
 pyttsx3 = "*"
+requests = "*"
+beautifulsoup4 = "*"
+httpx = "*"
 
 [dev-packages]
 
