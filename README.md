@@ -32,6 +32,20 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 
 ## How to run this?
 
+### All in one
+
+Execute the following command:
+
+Make sure the PowerShell script execution policy is set to `RemoteSigned` or `Unrestricted` (you can do this by running `Set-ExecutionPolicy RemoteSigned` or `Set-ExecutionPolicy Unrestricted` in PowerShell as an administrator).
+
+```bash
+.\run.ps1
+```
+
+This will run the server and client at the same time while opening up two terminals, so you can see the output of both the server and client.
+
+You can also individually run the server and client in the next two sections.
+
 ### Server
 
 Execute the following commands:
