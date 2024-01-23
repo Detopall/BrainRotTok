@@ -47,11 +47,10 @@ function BasicVideoType({ video, color, size, font, credit, creditSize }: Genera
 			if (video && !loading) {
 				setLoading(true);
 
-				const videoBlob = await fetch(video.src).then((response) =>
-					response.blob()
-				);
-
 				const formData = new FormData();
+
+				const videoBlob = await fetch(video.src).then((r) => r.blob());
+
 				formData.append('video', videoBlob, 'video.mp4');
 				formData.append('color', color);
 				formData.append('size', size.toString());
@@ -64,11 +63,9 @@ function BasicVideoType({ video, color, size, font, credit, creditSize }: Genera
 					body: formData,
 				});
 
-
 				if (!response.ok) {
 					throw new Error(`Failed to generate subtitles: ${response.statusText}`);
 				}
-
 
 				const resultVideoBlob = await response.blob();
 				const resultVideoObjectURL = URL.createObjectURL(resultVideoBlob);

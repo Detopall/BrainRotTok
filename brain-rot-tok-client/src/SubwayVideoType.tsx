@@ -8,7 +8,7 @@ function SubwayVideoType() {
 	const [size, setSize] = useState(24);
 	const [font, setFont] = useState("Arial");
 	const fontFamily = ["Arial", "Times New Roman", "Verdana", "Courier New", "Impact", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Arial Black", "Lucida Console"];
-	const [credit, setCredit] = useState("Subway Surfers");
+	const [credit, setCredit] = useState("");
 	const [creditSize, setCreditSize] = useState(24);
 	const [topVideo, setTopVideo] = useState<HTMLVideoElement | null>(null);
 	const [bottomVideo, setBottomVideo] = useState<HTMLVideoElement | null>(null);

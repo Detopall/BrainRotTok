@@ -56,9 +56,9 @@ function BasicVideoType() {
 					setFont={setFont}
 					fontFamily={fontFamily}
 					credit={credit}
-					setCreditSize={setCreditSize}
 					setCredit={setCredit}
 					creditSize={creditSize}
+					setCreditSize={setCreditSize}
 				/>
 			</div>
 
