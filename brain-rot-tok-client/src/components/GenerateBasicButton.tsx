@@ -95,7 +95,7 @@ function BasicVideoType({ video, color, size, font, credit, creditSize }: Genera
 						<>
 							<VideoPlayer videoUrl={resultVideoUrl} />
 							<button className="download-button">
-								<a href={resultVideoUrl} download={`BrainRotTok-Minecraft-${getFormattedDateTime()}.mp4`}>
+								<a href={resultVideoUrl} download={`BrainRotTok-Basic-${getFormattedDateTime()}.mp4`}>
 									Download
 								</a>
 							</button>

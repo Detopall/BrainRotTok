@@ -1,7 +1,8 @@
 # Open a new PowerShell terminal for the server
 Start-Process powershell -ArgumentList @(
     "-NoExit",
-    "-Command", "cd .\brain-rot-tok-server; pip install pipenv; pipenv install; pipenv shell; python .\server.py"
+    "-Command", "cd .\brain-rot-tok-server; pip install pipenv; pipenv install; pipenv shell",
+	"-Command", "python .\server.py"
 )
 
 # Open another PowerShell terminal for the client
