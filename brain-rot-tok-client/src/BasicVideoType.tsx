@@ -3,15 +3,17 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { ChangeEvent, useState } from 'react';
 import Subtitle from './components/Subtitle';
 import GenerateBasicButton from './components/GenerateBasicButton';
+import { Constants } from './constants';
+
 
 
 function BasicVideoType() {
-	const [color, setColor] = useState("#000000");
-	const [size, setSize] = useState(24);
-	const [font, setFont] = useState("Arial");
-	const fontFamily = ["Arial", "Times New Roman", "Verdana", "Courier New", "Impact", "Comic Sans MS", "Tahoma", "Trebuchet MS", "Arial Black", "Lucida Console"];
+	const [color, setColor] = useState(Constants.fontColor);
+	const [size, setSize] = useState(Constants.fontSize);
+	const [font, setFont] = useState(Constants.fontFamily[0]);
+	const [creditSize, setCreditSize] = useState(Constants.fontSize);
+	const fontFamily = Constants.fontFamily;
 	const [credit, setCredit] = useState("");
-	const [creditSize, setCreditSize] = useState(24);
 	const [videoSrc, setVideoSrc] = useState<string>("");
 	const [video, setVideo] = useState<HTMLVideoElement | null>(null);
 
