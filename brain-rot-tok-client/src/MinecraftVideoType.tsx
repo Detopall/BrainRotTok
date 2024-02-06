@@ -11,7 +11,7 @@ function MinecraftVideoType() {
 	const [font, setFont] = useState(Constants.fontFamily[0]);
 	const [creditSize, setCreditSize] = useState(Constants.fontSize);
 	const fontFamily = Constants.fontFamily;
-	const [credit, setCredit] = useState("");
+	const [credit, setCredit] = useState("Made by BrainRotTok");
 	const [videoSrc, setVideoSrc] = useState<string>("");
 	const [video, setVideo] = useState<HTMLVideoElement | null>(null);
 	const [subtitles, setSubtitles] = useState<string>("");
