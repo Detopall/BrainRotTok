@@ -20,6 +20,7 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 - **Subway Surfers**: a top and bottom video with subtitles for the bottom video and the top video is muted
 - **Minecraft Reddit**: a background video with subtitles (provided by you) in the middle and the subtitles are spoken by a text-to-speech voice
 - **Rumble Video**: a Rumble video link is provided and you can choose between different clips from the video. The subtitles are automatically generated and a zip folder is returned with the video and the subtitles.
+- **Video Cutter*: one or multiple videos can be uploaded and you can choose the start and end time for each video. The videos are then cut and a zip folder is returned with the videos.
 
 ## What technologies are used?
 
@@ -81,20 +82,26 @@ After the server is running, you can go to the client and start using the websit
 
 ![Rumble Video Example](./readme-assets/rumble-video-example.png)
 
+![Video Cutter Example](./readme-assets/video-cutter-example.png)
+
 ## Example video
 
-**Basic Example**
+``Basic Example``
 
 https://github.com/Detopall/BrainRotTok/assets/90131569/74f67256-9bc4-43ed-81a2-1d37dd1f5411
 
-**Subway Surfers Example**
+``Subway Surfers Example``
 
 https://github.com/Detopall/BrainRotTok/assets/90131569/4239972d-19d8-444d-af16-8b81e8c76c03
 
-**Minecraft Reddit Example**
+``Minecraft Reddit Example``
 
 https://github.com/Detopall/BrainRotTok/assets/90131569/d84bbdfe-868d-4b7d-b5c7-c4a42c14d8da
 
-**Rumble Video Example**
+``Rumble Video Example``
 
 https://github.com/Detopall/BrainRotTok/assets/90131569/32b60a46-5ef5-48d8-ba61-eed8751b0854
+
+``Video Cutter Example``
+
+Speaks for itself, it's just a video with the start and end times changed.
