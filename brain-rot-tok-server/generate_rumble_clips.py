@@ -39,8 +39,7 @@ def cut_video(input_url, start_time, end_time, output_directory, idx):
 		'ffmpeg',
 		'-i', input_url,
 		'-ss', start_time,
-		'-to', end_time,
-		'-c', 'copy',
+		'-t', end_time,
 		'-y', output_filepath
 	]
 
@@ -56,7 +55,6 @@ def add_subtitle(video_path, subtitle_file, customization_options):
 		"ffmpeg",
 		"-i", video_path,
 		"-vf", f"subtitles={subtitle_file}:force_style='Fontsize={customization_options['font_size']},PrimaryColour={customization_options['font_color']},Fontname={customization_options['font_family']},MarginV=50'",
-		"-c:a", "copy",
 		'-y', output_filepath
 	]
 
@@ -72,7 +70,6 @@ def add_text_to_video(video_path, customization_options):
 		"ffmpeg",
 		"-i", video_path,
 		'-vf', f'drawtext=text=\'{customization_options["credit"]}\':fontcolor=white:fontsize={customization_options["credit_size"]}:box=1:boxcolor=black@0.5:boxborderw=5:x=(w-text_w)/2:y=h-text_h-10',
-		"-c:a", "copy",
 		'-y', output_filepath
 	]
 

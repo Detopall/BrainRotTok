@@ -16,7 +16,7 @@ async def cut_videos(
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
 	timestamps_dict = json.loads(timestamps)
-	temp_dir = "./data/video_editor/temp"
+	temp_dir = "./data/video_editor/videos"
 	if not os.path.exists(temp_dir):
 		os.makedirs(temp_dir)
 
@@ -49,8 +49,7 @@ def save_and_cut(videos, temp_dir, timestamps_dict):
 			"ffmpeg",
 			"-i", temp_video_path,
 			"-ss", cut_start,
-			"-to", cut_end,
-			"-c", "copy",
+			"-t", cut_end,
 			"-y", output_video_path
 		])
 
