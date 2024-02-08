@@ -121,6 +121,10 @@ input[type="file"] {
 	flex: 1;
 }
 
+.video-input-label {
+	margin-bottom: 0.5rem;
+}
+
 .video-input-label,
 .subtitle-input-label {
 	display: block;
@@ -341,6 +345,7 @@ dialog div {
 }
 
 .video-section-container,
+.video-cut-container,
 .subtitle-section-container,
 .video-creation-container,
 .subtitle-text-section-container {
@@ -348,6 +353,10 @@ dialog div {
 	padding: 1rem;
 	border: 0.3rem solid #ccc;
 	width: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .subtitle-text-section-container textarea {
@@ -397,6 +406,10 @@ dialog div {
 	padding: 1rem;
 	border: 0.3rem solid #ccc;
 	width: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .video-clips-container p {
@@ -408,7 +421,7 @@ dialog div {
 	justify-content: center;
 	flex-flow: column wrap;
 	margin-bottom: 15px;
-	width: 50%;
+	width: fit-content;
 }
 
 .clip-item label {
@@ -436,6 +449,21 @@ dialog div {
 
 .clips-list li {
 	margin-bottom: 5px;
+}
+
+/* Cutting Video */
+
+.video-item {
+	margin-top: 20px;
+}
+
+.video-preview {
+	width: 400px;
+}
+
+.timestamp-input {
+	margin-top: 10px;
+	width: max-content;
 }
 
 @media (max-width: 768px) {

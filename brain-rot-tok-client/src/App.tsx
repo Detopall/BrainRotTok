@@ -5,6 +5,7 @@ import MinecraftVideoType from "./MinecraftVideoType";
 import Header from "./components/Header";
 import BasicVideoType from "./BasicVideoType";
 import RumbleVideoType from "./RumbleVideoType";
+import VideoCutterType from "./VideoCutterType";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
 				<Route path="subway-surfers-type" element={<SubwayVideoType />} />
 				<Route path="minecraft-reddit-type" element={<MinecraftVideoType />} />
 				<Route path="/rumble-video-type" element={<RumbleVideoType />} />
+				<Route path="/video-cutter" element={<VideoCutterType />} /> 
 			</Routes>
 		</div>
 	)

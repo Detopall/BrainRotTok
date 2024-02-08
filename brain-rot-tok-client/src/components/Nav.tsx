@@ -5,6 +5,7 @@ const navLinks = [
 	{ path: '/subway-surfers-type', text: 'Subway Surfers Type' },
 	{ path: '/minecraft-reddit-type', text: 'Minecraft-Reddit Type' },
 	{ path: '/rumble-video-type', text: 'Rumble Video Type' },
+	{ path: '/video-cutter', text: 'Video Cutter' },
 ];
 
 function Nav() {
