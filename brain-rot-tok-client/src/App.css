@@ -71,6 +71,9 @@ p {
 
 .nav-container li {
 	margin: 0 10px;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
 }
 
 .nav-container a {
@@ -88,6 +91,11 @@ p {
 
 .nav-container a:hover {
 	color: var(--red);
+}
+
+.nav-icon {
+    width: 50px;
+    height: auto;
 }
 
 .video-section,
