@@ -27,7 +27,10 @@ def generate_rumble_clips(customization_options, output_directory="./data/rumble
 		subtitle_video_clip = add_subtitle(video_clip_path, subtitle_file, customization_options)
 
 		# Add the text to the video
-		clip['clip_link'] = add_text_to_video(subtitle_video_clip, customization_options)
+		video_with_text = add_text_to_video(subtitle_video_clip, customization_options)
+
+		video_sped_up = speed_up_video(video_with_text)
+		clip["clip_link"] = video_sped_up
 	
 	return clips
 
@@ -78,3 +81,21 @@ def add_text_to_video(video_path, customization_options):
 	subprocess.run(text_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 	return output_filepath
+
+
+def speed_up_video(video_path):
+    output_filepath = video_path.replace('.mp4', '_sped_up.mp4')
+
+    speed_up_cmd = [
+        "ffmpeg",
+        "-i", video_path,
+        "-filter:v", "setpts=0.66*PTS",  # Speed up by 1.5x (1/1.5 = 0.6666)
+        "-filter:a", "atempo=1.5",  # Speed up audio as well
+        "-c:v", "libx264", "-c:a", "aac",
+        "-strict", "experimental",
+        "-y", output_filepath
+    ]
+
+    subprocess.run(speed_up_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    return output_filepath

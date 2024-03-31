@@ -20,6 +20,12 @@ def hex_to_ffmpeg_color(hex_color):
 	# Remove '#' if present
 	hex_color = hex_color.lstrip('#')
 
-	# Convert hex to FFmpeg color format
-	ffmpeg_color = int(hex_color, 16)
-	return f'0x{ffmpeg_color:06x}'
+	# Convert hex to RGB values
+	r = int(hex_color[0:2], 16)
+	g = int(hex_color[2:4], 16)
+	b = int(hex_color[4:6], 16)
+
+	# Construct FFmpeg color format
+	ffmpeg_color = (b << 16) + (g << 8) + r
+
+	return f'0x{ffmpeg_color:08x}'
