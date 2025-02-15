@@ -33,9 +33,6 @@ async def create_rumble_video(request_data: dict = Body(...)):
 	}
 
 	try:
-		# scrape the web for the rumble link
-		options["video_url"] = await rumble_link_scraper(video_url)
-
 		# Generate the clips
 		clips = generate_rumble_clips(options)
 		

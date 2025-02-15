@@ -1,0 +1,13 @@
+brain-rot-tok-server/.venv/*
+
+brain-rot-tok-server/data/basic/audio.mp3
+brain-rot-tok-server/data/basic/subtitles.srt
+
+brain-rot-tok-server/data/minecraft/audio.mp3
+brain-rot-tok-server/data/minecraft/subtitles.srt
+
+brain-rot-tok-server/data/rumble/audio.mp3
+brain-rot-tok-server/data/rumble/subtitles.srt
+
+brain-rot-tok-server/data/subway/audio.mp3
+brain-rot-tok-server/data/subway/subtitles.srt

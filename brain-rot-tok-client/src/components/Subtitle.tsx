@@ -1,4 +1,7 @@
-import { ChromePicker } from 'react-color';
+import { ChromePicker } from "react-color";
+import { Card, CardHeader, CardBody } from "@heroui/card";
+import { Input } from "@heroui/input";
+import { Select, SelectItem } from "@heroui/select";
 
 interface SubtitleProps {
 	color: string;
@@ -14,74 +17,117 @@ interface SubtitleProps {
 	setCreditSize: React.Dispatch<React.SetStateAction<number>>;
 }
 
-
-function Subtitle({ color, setColor, size, setSize, font, setFont, fontFamily, credit, setCredit, creditSize, setCreditSize }: SubtitleProps) {
-
-	const subtitleStyle = {
-		color: color,
-		fontSize: `${size}px`,
-		fontFamily: font,
-		textShadow: "-0.1px -0.1px 0 #000, 0.1px -0.1px 0 #000, -0.1px 0.1px 0 #000, 0.1px 0.1px 0 #000",
-	}
-
-	const creditStyle = {
-		fontSize: `${creditSize}px`
-	}
-
+function Subtitle({
+	color,
+	setColor,
+	size,
+	setSize,
+	font,
+	setFont,
+	fontFamily,
+	credit,
+	setCredit,
+	creditSize,
+	setCreditSize,
+}: SubtitleProps) {
 	return (
-		<>
-			<div className="subtitle-section">
-				<div className="subtitle-options">
-					<label htmlFor="color">Subtitle Color</label>
-					<ChromePicker color={color} onChangeComplete={(color) => {
-						const subtitle = document.querySelector(".subtitle") as HTMLElement;
-						subtitle.style.color = color.hex;
-						setColor(color.hex);
-					}} />
-
-					<label htmlFor="size">Subtitle Size</label>
-					<input type="number" id="size" name="size" defaultValue="24" min="1" max="50" className="input-size" onChange={(e) => {
-						const size = e.target.value;
-						const subtitle = document.querySelector(".subtitle") as HTMLElement;
-						subtitle.style.fontSize = `${size}px`;
-						setSize(parseInt(size));
-					}} />
-
-					<label htmlFor="font">Subtitle Font</label>
-					<select id="font" name="font">
-						{fontFamily.map((font) => {
-							return <option value={font} key={font} style={{ fontFamily: font }} onClick={(e) => {
-								const subtitle = document.querySelector(".subtitle") as HTMLElement;
-								subtitle.style.fontFamily = font;
-								setFont(font);
-							}}>{font}</option>
-						})}
-					</select>
-
-					<label htmlFor='credit-size'>Credit Size</label>
-					<input type="number" id="credit-size" name="credit-size" defaultValue="24" min="1" max="50" className="input-size" onChange={(e) => {
-						const size = e.target.value;
-						const credit = document.querySelector(".credit") as HTMLElement;
-						credit.style.fontSize = `${size}px`;
-						setCreditSize(parseInt(size));
-					}} />
-
-					<label htmlFor='credit-name'>Credit Name</label>
-					<input type="text" id="credit-name" name="credit-name" defaultValue="Made by BrainRotTok" onChange={(e) => {
-						const name = e.target.value;
-						const creditTag = document.querySelector(".credit") as HTMLElement;
-						creditTag.innerHTML = `Credit: ${name}`;
-						setCredit(name);
-					}} />
+		<div className="flex flex-col items-center justify-center gap-6 p-6 w-full">
+			<Card className="w-full max-w-lg shadow-lg rounded-2xl p-6">
+				<CardHeader className="text-center">
+					<h2 className="text-2xl font-semibold flex-auto">
+						Subtitle Settings
+					</h2>
+				</CardHeader>
+				<CardBody className="space-y-4">
+					<div className="flex flex-col items-center">
+						<label className="block text-sm font-medium mb-2">
+							Subtitle Color
+						</label>
+						<ChromePicker
+							color={color}
+							onChangeComplete={(c: any) => setColor(c.hex)}
+						/>
+					</div>
+					<div className="flex flex-col items-center">
+						<label className="block text-sm font-medium mb-2">
+							Subtitle Size
+						</label>
+						<Input
+							type="number"
+							className="text-center"
+							value={size.toString()}
+							min={1}
+							max={50}
+							onChange={(e) => setSize(parseInt(e.target.value))}
+						/>
+					</div>
+					<div className="flex flex-col items-center">
+						<label className="block text-sm font-medium mb-2">
+							Subtitle Font
+						</label>
+						<Select value={font} onChange={(e) => setFont(e.target.value)}>
+							{fontFamily.map((f) => (
+								<SelectItem
+									key={f}
+									value={f}
+									style={{ fontFamily: f }}
+									className="text-center"
+								>
+									{f}
+								</SelectItem>
+							))}
+						</Select>
+					</div>
+					<div className="flex flex-col items-center">
+						<label className="block text-sm font-medium mb-2">
+							Credit Name
+						</label>
+						<Input
+							type="text"
+							className="text-center"
+							value={credit}
+							onChange={(e) => setCredit(e.target.value)}
+						/>
+					</div>
+					<div className="flex flex-col items-center">
+						<label className="block text-sm font-medium mb-2">
+							Credit Size
+						</label>
+						<Input
+							type="number"
+							className="text-center"
+							value={creditSize.toString()}
+							min={1}
+							max={50}
+							onChange={(e) => setCreditSize(parseInt(e.target.value))}
+						/>
+					</div>
+				</CardBody>
+				<div className="flex justify-center flex-col gap-5 w-full max-w-lg text-center p-6 shadow-lg rounded-2xl">
+					<p
+						className="subtitle font-bold"
+						style={{
+							color,
+							fontSize: `${size}px`,
+							fontFamily: font,
+							textShadow:
+								"-0.1px -0.1px 0 #000, 0.1px -0.1px 0 #000, -0.1px 0.1px 0 #000, 0.1px 0.1px 0 #000",
+						}}
+					>
+						Sample Subtitle: This is the sample subtitle
+					</p>
+					<p
+						className="credit text-sm mt-2"
+						style={{
+							fontSize: `${creditSize}px`,
+						}}
+					>
+						Credit: {credit}
+					</p>
 				</div>
-
-				<div className="subtitle-preview">
-					<p className="subtitle" style={subtitleStyle}>Sample Subtitle: This is a sample text </p>
-					<p className="credit" style={creditStyle}>Sample Credit: Made by BrainRotTok</p>
-				</div>
-			</div>
-		</>
-	)
+			</Card>
+		</div>
+	);
 }
 
 export default Subtitle;

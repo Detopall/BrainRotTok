@@ -1,19 +1,5 @@
-import { useRef, useState } from 'react';
-
-interface VideoPlayerProps {
-	videoUrl: string;
-}
-
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl }) => {
-	return (
-		<div>
-			<video controls width="600" height="400">
-				<source src={videoUrl} type="video/mp4" />
-				Your browser does not support the video tag.
-			</video>
-		</div>
-	);
-};
+import { useRef, useState } from "react";
+import GenerateButtonLayout from "@/layouts/generate-button-layout";
 
 interface VideoGeneratorProps {
 	topVideo: HTMLVideoElement | null;
@@ -51,21 +37,26 @@ function VideoGenerator({
 				);
 
 				const formData = new FormData();
-				formData.append('top_video', topVideoBlob, 'top_video.mp4');
-				formData.append('bottom_video', bottomVideoBlob, 'bottom_video.mp4');
-				formData.append('color', color);
-				formData.append('size', size.toString());
-				formData.append('font', font);
-				formData.append('credit', credit);
-				formData.append('credit_size', creditSize.toString());
+				formData.append("top_video", topVideoBlob, "top_video.mp4");
+				formData.append("bottom_video", bottomVideoBlob, "bottom_video.mp4");
+				formData.append("color", color);
+				formData.append("size", size.toString());
+				formData.append("font", font);
+				formData.append("credit", credit);
+				formData.append("credit_size", creditSize.toString());
 
-				const response = await fetch('http://localhost:8000/subway/generate-subtitles', {
-					method: 'POST',
-					body: formData,
-				});
+				const response = await fetch(
+					"http://localhost:8000/subway/generate-subtitles",
+					{
+						method: "POST",
+						body: formData,
+					}
+				);
 
 				if (!response.ok) {
-					throw new Error(`Failed to generate subtitles: ${response.statusText}`);
+					throw new Error(
+						`Failed to generate subtitles: ${response.statusText}`
+					);
 				}
 
 				const videoBlob = await response.blob();
@@ -76,7 +67,7 @@ function VideoGenerator({
 				dialogRef.current?.showModal();
 			}
 		} catch (error) {
-			console.error('Error uploading video:', error);
+			console.error("Error uploading video:", error);
 		} finally {
 			setLoading(false);
 		}
@@ -85,46 +76,22 @@ function VideoGenerator({
 	function getFormattedDateTime() {
 		const now = new Date();
 		const year = now.getFullYear();
-		const month = String(now.getMonth() + 1).padStart(2, '0');
-		const day = String(now.getDate()).padStart(2, '0');
-		const hours = String(now.getHours()).padStart(2, '0');
-		const minutes = String(now.getMinutes()).padStart(2, '0');
-		const seconds = String(now.getSeconds()).padStart(2, '0');
+		const month = String(now.getMonth() + 1).padStart(2, "0");
+		const day = String(now.getDate()).padStart(2, "0");
+		const hours = String(now.getHours()).padStart(2, "0");
+		const minutes = String(now.getMinutes()).padStart(2, "0");
+		const seconds = String(now.getSeconds()).padStart(2, "0");
 
 		return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`;
 	}
 
 	return (
-		<div className="button-section">
-			{loading ? (
-				<div className="loading-spinner">
-					{/* Add your loading spinner content here */}
-				</div>
-			) : (
-				<div className="button-video-container">
-					<button className="generate-button" onClick={handleRequest}>
-						Generate
-					</button>
-					{videoUrl && (
-						<>
-							<VideoPlayer videoUrl={videoUrl} />
-							<button className="download-button">
-								<a href={videoUrl} download={`BrainRotTok-Subway-${getFormattedDateTime()}.mp4`}>
-									Download
-								</a>
-							</button>
-						</>
-					)}
-				</div>
-			)}
-
-			<dialog ref={dialogRef}>
-				<div>
-					<p>Please select a top and a bottom video.</p>
-					<button onClick={() => dialogRef.current?.close()}>Close</button>
-				</div>
-			</dialog>
-		</div>
+		<GenerateButtonLayout
+			loading={loading}
+			resultVideoUrl={videoUrl || ""}
+			handleRequest={handleRequest}
+			getFormattedDateTime={getFormattedDateTime}
+		/>
 	);
 }
 

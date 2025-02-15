@@ -38,7 +38,7 @@ async def create_basic_video(
 
 	if not os.path.exists(result_video_path):
 		return {"message": "Error generating subtitles!"}
-	
+
 	background_tasks.add_task(remove_content_from_dir, "./data/basic/videos")
 
 	return FileResponse(result_video_path, media_type="video/mp4", filename="result.mp4")

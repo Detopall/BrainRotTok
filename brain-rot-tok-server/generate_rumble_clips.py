@@ -29,8 +29,8 @@ def generate_rumble_clips(customization_options, output_directory="./data/rumble
 		# Add the text to the video
 		video_with_text = add_text_to_video(subtitle_video_clip, customization_options)
 
-		video_sped_up = speed_up_video(video_with_text)
-		clip["clip_link"] = video_sped_up
+		# video_sped_up = speed_up_video(video_with_text)
+		clip["clip_link"] = video_with_text
 	
 	return clips
 

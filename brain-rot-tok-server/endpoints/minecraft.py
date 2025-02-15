@@ -19,9 +19,9 @@ async def create_minecraft_video(
 	credit_size: int = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
-	
-	background_video_path = "./data/minecraft/videos/background_video.mp4"
+
 	# Save the videos
+	background_video_path = "./data/minecraft/videos/background_video.mp4"
 	with open(background_video_path, "wb") as buffer:
 		shutil.copyfileobj(video.file, buffer)
 

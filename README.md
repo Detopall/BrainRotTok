@@ -1,5 +1,29 @@
 # BrainRotTok
 
+<div style="text-align: center; margin-bottom: 20px;">
+    <img src="./brain-rot-tok-client/public/favicon.ico" alt="brain-rot-tok" style="max-width: 150px; height: auto; border-radius: 8px;">
+
+<h1 style="text-align: center; font-size: 2em;">Brain Rot Tok</h1>
+
+<p style="text-align: center; font-size: 1.2em;">
+    A TikTok video generator that creates those iconic TikTok videos with subtitles.
+</p>
+</div>
+
+## Table of Contents
+
+- [What is BrainRotTok?](#what-is-brainrottok)
+- [What is brain rot?](#what-is-brain-rot)
+- [Why did I make this?](#why-did-i-make-this)
+- [What can you do with this?](#what-can-you-do-with-this)
+- [What technologies are used?](#what-technologies-are-used)
+- [How to run this?](#how-to-run-this)
+  - [All in one (Docker)](#all-in-one-docker)
+  - [Server](#server)
+  - [Client](#client)
+- [Examples](#examples)
+- [License](#license)
+
 ## What is BrainRotTok?
 
 BrainRotTok allows you to create those iconic TikTok videos with subtitles. There are different types of videos you can create, you can find the list of them below in the "What can you do with this?" section.
@@ -20,11 +44,11 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 - **Subway Surfers**: a top and bottom video with subtitles for the bottom video and the top video is muted
 - **Minecraft Reddit**: a background video with subtitles (provided by you) in the middle and the subtitles are spoken by a text-to-speech voice
 - **Rumble Video**: a Rumble video link is provided and you can choose between different clips from the video. The subtitles are automatically generated and a zip folder is returned with the video and the subtitles.
-- **Video Cutter*: one or multiple videos can be uploaded and you can choose the start and end time for each video. The videos are then cut and a zip folder is returned with the videos.
 
 ## What technologies are used?
 
 - React (with TypeScript)
+- HeroUI (with Tailwindcss)
 - Python
 - FastAPI
 - Whisper (OpenAI)
@@ -33,17 +57,31 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 
 ## How to run this?
 
-### All in one
+### All in one (Docker)
 
 Execute the following command:
 
-Make sure the PowerShell script execution policy is set to `RemoteSigned` or `Unrestricted` (you can do this by running `Set-ExecutionPolicy RemoteSigned` or `Set-ExecutionPolicy Unrestricted` in PowerShell as an administrator).
+Make sure the bash script has the right permission by running `chmod +x run.sh`
 
 ```bash
-.\run.ps1
+./run.sh
 ```
 
-This will run the server and client at the same time while opening up two terminals, so you can see the output of both the server and client.
+This will do the following:
+
+- Build the Docker image
+- Run the Docker container
+- Open the site in the browser
+
+To run it yourself using Docker, you can run the following commands:
+
+```bash
+# Build the Docker image
+docker build -t brain-rot-tok .
+
+# Run the Docker container in detached mode and expose necessary ports
+docker run -it -d -p 8000:8000 -p 5173:5173 --name brain-rot-tok-container brain-rot-tok
+```
 
 You can also individually run the server and client in the next two sections.
 
@@ -53,8 +91,7 @@ Execute the following commands:
 
 ```bash
 cd ./brain-rot-tok-server
-pipenv install
-pipenv shell
+pip install -r requirements.txt
 python server.py
 ```
 
@@ -74,34 +111,32 @@ After the server is running, you can go to the client and start using the websit
 
 ## Examples
 
-![Basic Example](./readme-assets/basic-example.png)
+You can find how the site works and looks like in the [readme-assets](/readme-assets/) folder (both in light/dark mode).
 
-![Subway Surfers Example](./readme-assets/subway-surfers-example.png)
+## License
 
-![Minecraft Reddit Example](./readme-assets/minecraft-reddit-example.png)
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).
 
-![Rumble Video Example](./readme-assets/rumble-video-example.png)
+```plaintext
+MIT License
 
-![Video Cutter Example](./readme-assets/video-cutter-example.png)
+Copyright (c) [2025] [Denis Topallaj]
 
-## Example video
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-``Basic Example``
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-https://github.com/Detopall/BrainRotTok/assets/90131569/74f67256-9bc4-43ed-81a2-1d37dd1f5411
-
-``Subway Surfers Example``
-
-https://github.com/Detopall/BrainRotTok/assets/90131569/4239972d-19d8-444d-af16-8b81e8c76c03
-
-``Minecraft Reddit Example``
-
-https://github.com/Detopall/BrainRotTok/assets/90131569/d84bbdfe-868d-4b7d-b5c7-c4a42c14d8da
-
-``Rumble Video Example``
-
-https://github.com/Detopall/BrainRotTok/assets/90131569/32b60a46-5ef5-48d8-ba61-eed8751b0854
-
-``Video Cutter Example``
-
-Speaks for itself, it's just a video with the start and end times changed.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
