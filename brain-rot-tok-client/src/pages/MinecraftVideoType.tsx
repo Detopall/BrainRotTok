@@ -22,6 +22,7 @@ function MinecraftVideoType() {
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const fileInput = event.target;
 		const video = document.getElementById(`video`) as HTMLVideoElement;
+		console.log(video);
 
 		if (fileInput.files && fileInput.files.length > 0) {
 			const file = fileInput.files[0];
@@ -29,6 +30,7 @@ function MinecraftVideoType() {
 
 			setVideoSrc(fileURL);
 			setVideo(video);
+			console.log(video);
 
 			video.src = fileURL;
 			video.style.display = "block";

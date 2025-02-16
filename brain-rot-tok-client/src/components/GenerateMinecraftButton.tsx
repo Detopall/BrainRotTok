@@ -37,6 +37,10 @@ function GenerateMinecraftVideo({
 	}
 
 	async function handleRequest() {
+		console.log("Pressed");
+		console.log(video);
+		console.log(loading);
+
 		try {
 			if (video && !loading) {
 				setLoading(true);
