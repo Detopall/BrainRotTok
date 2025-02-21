@@ -4,6 +4,18 @@ IMAGE_NAME="brain-rot-tok"
 CONTAINER_NAME="brain-rot-tok-container"
 PORTS="-p 8000:8000 -p 5173:5173"
 
+function show_help() {
+    echo "Usage: $0 [OPTION]"
+    echo "Manage the Docker container for TrackSplitter."
+    echo
+    echo "Options:"
+    echo "  --help                Show this help message and exit."
+    echo "  --stop                Stop the running container if it exists."
+    echo "  --remove-container    Stop and remove the container."
+    echo "  --remove-all          Stop and remove the container, then remove the image."
+    echo "  (no option)           Start the container (builds if necessary)."
+}
+
 function build_image() {
     if ! docker image inspect $IMAGE_NAME > /dev/null 2>&1; then
         echo "Building Docker image..."
@@ -72,6 +84,9 @@ function remove_all() {
 }
 
 case "$1" in
+	--help)
+		show_help
+		;;
     --stop)
         stop_container
         ;;

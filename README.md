@@ -23,6 +23,7 @@
     - [Stop](#stop)
     - [Remove Container](#remove-container)
     - [Remove Image](#remove-image)
+    - [Help](#help)
   - [Server](#server)
   - [Client](#client)
 - [Examples](#examples)
@@ -103,6 +104,14 @@ Make sure the bash script has the right permission by running chmod +x run.sh
 - Stops the running container (if not already stopped)
 - Remove the container
 - Remove the Docker image
+
+#### Help
+
+```bash
+./run.sh --help
+```
+
+- Print the help message containing info about the available options
 
 To run it yourself using Docker, you can run the following commands:
 
