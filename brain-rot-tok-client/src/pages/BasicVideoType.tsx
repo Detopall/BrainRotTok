@@ -1,5 +1,5 @@
 import Layout from "@/layouts/layout";
-import { useState, ChangeEvent, useRef } from "react";
+import { useState, ChangeEvent, useRef, useEffect } from "react";
 import Subtitle from "@/components/Subtitle";
 import GenerateBasicButton from "@/components/GenerateBasicButton";
 import { Constants } from "@/components/constants";
@@ -15,24 +15,26 @@ function BasicVideoType() {
 	const fontFamily = Constants.fontFamily;
 	const [credit, setCredit] = useState("");
 	const [videoSrc, setVideoSrc] = useState<string>("");
-	const [video, setVideo] = useState<HTMLVideoElement | null>(null);
+	const [_, setVideo] = useState<HTMLVideoElement | null>(null);
 
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
+	const videoRef = useRef<HTMLVideoElement | null>(null);
+
+	useEffect(() => {
+		if (videoSrc && videoRef.current) {
+			videoRef.current.src = videoSrc;
+			setVideo(videoRef.current);
+		}
+	}, [videoSrc]);
 
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const fileInput = event.target;
-		const video = document.getElementById(`video`) as HTMLVideoElement;
 
 		if (fileInput.files && fileInput.files.length > 0) {
 			const file = fileInput.files[0];
 			const fileURL = URL.createObjectURL(file);
 
 			setVideoSrc(fileURL);
-			setVideo(video);
-			console.log(video);
-
-			video.src = fileURL;
-			video.style.display = "block";
 		}
 	};
 
@@ -71,8 +73,7 @@ function BasicVideoType() {
 				{videoSrc && (
 					<video
 						className="w-full max-w-3xl rounded-lg border-2 border-gray-300 mt-4"
-						id="video"
-						src={videoSrc}
+						ref={videoRef}
 						controls
 					/>
 				)}
@@ -92,7 +93,7 @@ function BasicVideoType() {
 				/>
 
 				<GenerateBasicButton
-					video={video}
+					video={videoRef}
 					color={color}
 					size={size}
 					font={font}

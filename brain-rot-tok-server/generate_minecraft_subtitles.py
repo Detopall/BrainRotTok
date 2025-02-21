@@ -1,10 +1,12 @@
+import os
+import subprocess
+
 from utils.create_subtitles import hex_to_ffmpeg_color, create_subtitles
 from utils.transcribe_audio import transcribe_audio
 from utils.text_to_speech import text_to_speech
-import subprocess
-import os
 
 def generate_minecraft_subtitles(customization_options, subtitles):
+
 	customization_options['font_color'] = hex_to_ffmpeg_color(customization_options['font_color'])
 
 	audio_file_path = "./data/minecraft/audio.mp3"
@@ -12,7 +14,7 @@ def generate_minecraft_subtitles(customization_options, subtitles):
 
 	background_video_path = customization_options['background_video']
 	output_directory = "./data/minecraft/videos"
-	
+
 	text_to_speech(subtitles, audio_file_path)
 	transcription = transcribe_audio(audio_file_path)
 	create_subtitles(transcription, subtitle_file)

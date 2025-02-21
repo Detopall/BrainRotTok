@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse
 from fastapi import APIRouter
 from generate_basic_subtitles import generate_basic_subtitles
 from endpoints.utils.remove_content_from_dir import remove_content_from_dir
+from utils.create_files import create_files_when_necessary
 import os
 import shutil
 
@@ -18,6 +19,9 @@ async def create_basic_video(
 	credit_size: int = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
+
+	create_files_when_necessary("basic")
+
 	# Save the videos
 	basic_video_path = "./data/basic/videos/video.mp4"
 	with open(basic_video_path, "wb") as buffer:

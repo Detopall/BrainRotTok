@@ -3,6 +3,7 @@ from fastapi.responses import FileResponse
 from fastapi import APIRouter
 from generate_minecraft_subtitles import generate_minecraft_subtitles
 from endpoints.utils.remove_content_from_dir import remove_content_from_dir
+from utils.create_files import create_files_when_necessary
 import os
 import shutil
 
@@ -19,6 +20,8 @@ async def create_minecraft_video(
 	credit_size: int = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
 ):
+
+	create_files_when_necessary("minecraft")
 
 	# Save the videos
 	background_video_path = "./data/minecraft/videos/background_video.mp4"

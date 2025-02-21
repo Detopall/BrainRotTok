@@ -25,6 +25,8 @@ function VideoGenerator({
 	const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
 	async function handleRequest() {
+		console.log("topVideo", topVideo);
+		console.log("bottomVideo", bottomVideo);
 		try {
 			if (topVideo && bottomVideo && !loading) {
 				setLoading(true);

@@ -4,6 +4,7 @@ from fastapi import APIRouter
 from generate_rumble_clips import generate_rumble_clips
 from endpoints.utils.remove_content_from_dir import remove_content_from_dir
 from endpoints.utils.webscraping_rumble_link import rumble_link_scraper
+from utils.create_files import create_files_when_necessary
 import io
 import zipfile
 
@@ -32,10 +33,12 @@ async def create_rumble_video(request_data: dict = Body(...)):
 		"credit_size": credit_size,
 	}
 
+	create_files_when_necessary("rumble")
+
 	try:
 		# Generate the clips
 		clips = generate_rumble_clips(options)
-		
+
 		# Create a zip archive in memory
 		zip_buffer = io.BytesIO()
 		with zipfile.ZipFile(zip_buffer, "w") as zip_file:
@@ -45,7 +48,7 @@ async def create_rumble_video(request_data: dict = Body(...)):
 				zip_file.write(clip_link, arcname=f"clips/{clip_name}.mp4")
 
 		# Reset the buffer position to the beginning
-		zip_buffer.seek(0)		
+		zip_buffer.seek(0)
 
 		# remove the clips directory content
 		remove_content_from_dir("./data/rumble/clips")

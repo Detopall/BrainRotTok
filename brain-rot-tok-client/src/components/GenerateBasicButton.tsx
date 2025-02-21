@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import GenerateButtonLayout from "@/layouts/generate-button-layout";
 
 interface GenerateBasicVideo {
-	video: HTMLVideoElement | null;
+	video: React.RefObject<HTMLVideoElement>;
 	color: string;
 	size: number;
 	font: string;
@@ -10,7 +10,7 @@ interface GenerateBasicVideo {
 	creditSize: number;
 }
 
-function BasicVideoType({
+function GenerateBasicButton({
 	video,
 	color,
 	size,
@@ -35,13 +35,14 @@ function BasicVideoType({
 	}
 
 	async function handleRequest() {
+		console.log(video.current);
 		try {
-			if (video && !loading) {
+			if (video.current && !loading) {
 				setLoading(true);
 
 				const formData = new FormData();
 
-				const videoBlob = await fetch(video.src).then((r) => r.blob());
+				const videoBlob = await fetch(video.current.src).then((r) => r.blob());
 
 				formData.append("video", videoBlob, "video.mp4");
 				formData.append("color", color);
@@ -87,4 +88,4 @@ function BasicVideoType({
 	);
 }
 
-export default BasicVideoType;
+export default GenerateBasicButton;

@@ -1,8 +1,9 @@
+import os
+import subprocess
+
 from utils.create_subtitles import hex_to_ffmpeg_color, create_subtitles
 from utils.transcribe_audio import transcribe_audio
 from utils.video_to_audio import extract_audio
-import subprocess
-import os
 
 def generate_basic_subtitles(customization_options):
 	customization_options['font_color'] = hex_to_ffmpeg_color(customization_options['font_color'])
@@ -11,7 +12,7 @@ def generate_basic_subtitles(customization_options):
 	audio_file_path = "./data/basic/audio.mp3"
 	subtitle_file = "./data/basic/subtitles.srt"
 	output_directory = "./data/basic/videos"
-	
+
 	extract_audio(video_path, audio_file_path)
 	transcription = transcribe_audio(audio_file_path)
 	create_subtitles(transcription, subtitle_file)
@@ -24,7 +25,7 @@ def generate_basic_subtitles(customization_options):
 
 def add_subtitle(video_path, subtitle_file, customization_options, output_directory):
 	subtitle_video_path = os.path.join(output_directory, 'subtitle_video.mp4')
-	
+
 	# Add the subtitle to the video
 	subtitle_cmd = [
 		"ffmpeg",

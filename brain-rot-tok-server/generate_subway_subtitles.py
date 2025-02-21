@@ -1,8 +1,9 @@
+import os
 import subprocess
+
 from utils.video_to_audio import extract_audio
 from utils.transcribe_audio import transcribe_audio
 from utils.create_subtitles import create_subtitles, hex_to_ffmpeg_color
-import os
 
 
 def generate_subway_subtitles(customization_options):
@@ -17,7 +18,7 @@ def generate_subway_subtitles(customization_options):
 	extract_audio(bottom_video_path, audio_file)
 	transcription = transcribe_audio(audio_file)
 	create_subtitles(transcription, subtitle_file)
-	
+
 	trimmed_output_filepath = top_video_operations(top_video_path, bottom_video_path, output_directory)
 
 	bottom_video_width, bottom_video_height = bottom_video_operations(bottom_video_path)
@@ -101,7 +102,7 @@ def combination_video(trimmed_top_video_path, bottom_video_path, bottom_video_wi
 		"-map", "[a]",
 		"-y", combined_output_filepath
 	]
-	
+
 	subprocess.run(combine_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 	return combined_output_filepath

@@ -1,8 +1,9 @@
 import os
+import subprocess
+
 from utils.create_subtitles import hex_to_ffmpeg_color, create_subtitles
 from utils.transcribe_audio import transcribe_audio
 from utils.video_to_audio import extract_audio
-import subprocess
 
 
 def generate_rumble_clips(customization_options, output_directory="./data/rumble/clips"):
@@ -31,7 +32,7 @@ def generate_rumble_clips(customization_options, output_directory="./data/rumble
 
 		# video_sped_up = speed_up_video(video_with_text)
 		clip["clip_link"] = video_with_text
-	
+
 	return clips
 
 

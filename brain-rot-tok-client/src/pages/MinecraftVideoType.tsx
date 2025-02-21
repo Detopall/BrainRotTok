@@ -1,7 +1,7 @@
 import Layout from "@/layouts/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useState, useRef, useEffect } from "react";
 import Subtitle from "@/components/Subtitle";
 import GenerateMinecraftButton from "@/components/GenerateMinecraftButton";
 import { Constants } from "@/components/constants";
@@ -14,32 +14,32 @@ function MinecraftVideoType() {
 	const [creditSize, setCreditSize] = useState(Constants.fontSize);
 	const fontFamily = Constants.fontFamily;
 	const [credit, setCredit] = useState("Made by BrainRotTok");
-	const fileInputRef = useRef<HTMLInputElement | null>(null);
 	const [videoSrc, setVideoSrc] = useState<string>("");
-	const [video, setVideo] = useState<HTMLVideoElement | null>(null);
 	const [subtitles, setSubtitles] = useState<string>("");
+
+	const fileInputRef = useRef<HTMLInputElement | null>(null);
+	const videoRef = useRef<HTMLVideoElement | null>(null);
+
+	useEffect(() => {
+		if (videoSrc && videoRef.current) {
+			videoRef.current.src = videoSrc;
+		}
+	}, [videoSrc]);
 
 	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const fileInput = event.target;
-		const video = document.getElementById(`video`) as HTMLVideoElement;
-		console.log(video);
 
 		if (fileInput.files && fileInput.files.length > 0) {
 			const file = fileInput.files[0];
 			const fileURL = URL.createObjectURL(file);
 
 			setVideoSrc(fileURL);
-			setVideo(video);
-			console.log(video);
-
-			video.src = fileURL;
-			video.style.display = "block";
 		}
 	};
 
-	function handleSubtitles(e: ChangeEvent<HTMLTextAreaElement>) {
+	const handleSubtitles = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		setSubtitles(e.target.value);
-	}
+	};
 
 	const handleButtonClick = () => {
 		if (fileInputRef.current) {
@@ -78,7 +78,7 @@ function MinecraftVideoType() {
 				<video
 					className="w-full max-w-3xl rounded-lg border-2 border-gray-300 mt-4"
 					id="video"
-					src={videoSrc}
+					ref={videoRef}
 					controls
 				/>
 			)}
@@ -107,7 +107,7 @@ function MinecraftVideoType() {
 			/>
 
 			<GenerateMinecraftButton
-				video={video}
+				video={videoRef}
 				subtitles={subtitles}
 				color={color}
 				size={size}

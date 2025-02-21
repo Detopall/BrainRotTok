@@ -2,7 +2,7 @@ import Layout from "@/layouts/layout";
 import Videos from "@/components/Videos";
 import Subtitle from "@/components/Subtitle";
 import GenerateSubwayButton from "@/components/GenerateSubwayButton";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Constants } from "@/components/constants";
 
 function SubwayVideoType() {
@@ -12,8 +12,27 @@ function SubwayVideoType() {
 	const [creditSize, setCreditSize] = useState(Constants.fontSize);
 	const fontFamily = Constants.fontFamily;
 	const [credit, setCredit] = useState("");
+	const [topVideoSrc, setTopVideoSrc] = useState<string>("");
+	const [bottomVideoSrc, setBottomVideoSrc] = useState<string>("");
 	const [topVideo, setTopVideo] = useState<HTMLVideoElement | null>(null);
 	const [bottomVideo, setBottomVideo] = useState<HTMLVideoElement | null>(null);
+
+	const topVideoRef = useRef<HTMLVideoElement | null>(null);
+	const bottomVideoRef = useRef<HTMLVideoElement | null>(null);
+
+	useEffect(() => {
+		if (topVideoSrc && topVideoRef.current) {
+			topVideoRef.current.src = topVideoSrc;
+			setTopVideo(topVideoRef.current);
+		}
+	}, [topVideoSrc]);
+
+	useEffect(() => {
+		if (bottomVideoSrc && bottomVideoRef.current) {
+			bottomVideoRef.current.src = bottomVideoSrc;
+			setBottomVideo(bottomVideoRef.current);
+		}
+	}, [bottomVideoSrc]);
 
 	const setTopVideoFile = (video: HTMLVideoElement | null) => {
 		setTopVideo(video);

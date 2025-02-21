@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import GenerateButtonLayout from "@/layouts/generate-button-layout";
 
 interface GenerateMinecraftVideo {
-	video: HTMLVideoElement | null;
+	video: React.RefObject<HTMLVideoElement>;
 	subtitles: string;
 	color: string;
 	size: number;
@@ -37,15 +37,14 @@ function GenerateMinecraftVideo({
 	}
 
 	async function handleRequest() {
-		console.log("Pressed");
-		console.log(video);
+		console.log(video.current);
 		console.log(loading);
 
 		try {
-			if (video && !loading) {
+			if (video.current && !loading) {
 				setLoading(true);
 
-				const videoBlob = await fetch(video.src).then((response) =>
+				const videoBlob = await fetch(video.current.src).then((response) =>
 					response.blob()
 				);
 

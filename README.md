@@ -18,7 +18,11 @@
 - [What can you do with this?](#what-can-you-do-with-this)
 - [What technologies are used?](#what-technologies-are-used)
 - [How to run this?](#how-to-run-this)
-  - [All in one (Docker)](#all-in-one-docker)
+  - [Docker](#docker)
+    - [Run](#run)
+    - [Stop](#stop)
+    - [Remove Container](#remove-container)
+    - [Remove Image](#remove-image)
   - [Server](#server)
   - [Client](#client)
 - [Examples](#examples)
@@ -57,21 +61,48 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 
 ## How to run this?
 
-### All in one (Docker)
+### Docker
 
 Execute the following command:
 
-Make sure the bash script has the right permission by running `chmod +x run.sh`
+Make sure the bash script has the right permission by running chmod +x run.sh
+
+#### Run
 
 ```bash
 ./run.sh
 ```
 
-This will do the following:
+- Build the Docker image (if not already built)
+- Run the container (if it isn't already running)
+- Open the app in your default web browser at `http://localhost:5173/`
 
-- Build the Docker image
-- Run the Docker container
-- Open the site in the browser
+#### Stop
+
+```bash
+./run.sh --stop
+```
+
+- Stop the running container
+
+#### Remove Container
+
+```bash
+./run.sh --remove-container
+```
+
+- Stops the running container (if not already stopped)
+- Remove the container
+
+#### Remove Image
+
+```bash
+./run.sh --remove-all
+```
+
+- Stops the running container (if not already stopped)
+- Remove the container
+- Remove the Docker image
 
 To run it yourself using Docker, you can run the following commands:
 

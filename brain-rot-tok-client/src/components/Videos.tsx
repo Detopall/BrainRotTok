@@ -14,53 +14,46 @@ function Videos({ setTopVideoFile, setBottomVideoFile }: VideosProps) {
 
 	const topFileInputRef = useRef<HTMLInputElement | null>(null);
 	const bottomFileInputRef = useRef<HTMLInputElement | null>(null);
+	const topVideoRef = useRef<HTMLVideoElement | null>(null);
+	const bottomVideoRef = useRef<HTMLVideoElement | null>(null);
 
 	const handleFileChange = (
 		event: ChangeEvent<HTMLInputElement>,
-		videoId: string
+		videoType: "top" | "bottom"
 	) => {
 		const fileInput = event.target;
-		const video = document.getElementById(
-			`video-${videoId}`
-		) as HTMLVideoElement;
-
 		if (fileInput.files && fileInput.files.length > 0) {
 			const file = fileInput.files[0];
 			const fileURL = URL.createObjectURL(file);
 
-			if (videoId === "top") {
+			if (videoType === "top") {
 				setTopVideoSrc(fileURL);
-				setTopVideoFile(video);
-			} else if (videoId === "bottom") {
+				if (topVideoRef.current) {
+					topVideoRef.current.src = fileURL;
+					topVideoRef.current.style.display = "block";
+					setTopVideoFile(topVideoRef.current); // Pass the actual video element
+				}
+			} else {
 				setBottomVideoSrc(fileURL);
-				setBottomVideoFile(video);
+				if (bottomVideoRef.current) {
+					bottomVideoRef.current.src = fileURL;
+					bottomVideoRef.current.style.display = "block";
+					setBottomVideoFile(bottomVideoRef.current); // Pass the actual video element
+				}
 			}
-
-			video.src = fileURL;
-			video.style.display = "block";
 		} else {
-			if (videoId === "top") {
+			if (videoType === "top") {
 				setTopVideoSrc("");
-			} else if (videoId === "bottom") {
+				setTopVideoFile(null);
+			} else {
 				setBottomVideoSrc("");
+				setBottomVideoFile(null);
 			}
-
-			video.src = "";
-			video.style.display = "none";
 		}
 	};
 
-	const handleTopButtonClick = () => {
-		if (topFileInputRef.current) {
-			topFileInputRef.current.click();
-		}
-	};
-
-	const handleBottomButtonClick = () => {
-		if (bottomFileInputRef.current) {
-			bottomFileInputRef.current.click();
-		}
-	};
+	const handleTopButtonClick = () => topFileInputRef.current?.click();
+	const handleBottomButtonClick = () => bottomFileInputRef.current?.click();
 
 	return (
 		<div className="flex flex-col items-center space-y-8">
@@ -77,15 +70,13 @@ function Videos({ setTopVideoFile, setBottomVideoFile }: VideosProps) {
 				<input
 					type="file"
 					accept="video/*"
-					id="topVideoInput"
 					className="hidden"
 					onChange={(e) => handleFileChange(e, "top")}
 					ref={topFileInputRef}
 				/>
 				<video
-					id="video-top"
+					ref={topVideoRef}
 					className="w-full rounded-lg shadow-md border border-gray-300"
-					src={topVideoSrc}
 					controls
 					style={{ display: topVideoSrc ? "block" : "none" }}
 				/>
@@ -104,15 +95,13 @@ function Videos({ setTopVideoFile, setBottomVideoFile }: VideosProps) {
 				<input
 					type="file"
 					accept="video/*"
-					id="bottomVideoInput"
 					className="hidden"
 					onChange={(e) => handleFileChange(e, "bottom")}
 					ref={bottomFileInputRef}
 				/>
 				<video
-					id="video-bottom"
+					ref={bottomVideoRef}
 					className="w-full rounded-lg shadow-md border border-gray-300"
-					src={bottomVideoSrc}
 					controls
 					style={{ display: bottomVideoSrc ? "block" : "none" }}
 				/>
