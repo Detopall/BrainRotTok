@@ -1,0 +1,22 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/brain-rot-tok-server
+    command: ["/bin/bash", "-c", "/app/.venv/bin/python /app/brain-rot-tok-server/server.py"]
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/brain-rot-tok-client
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
+    depends_on:
+      - server

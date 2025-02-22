@@ -1,44 +1,45 @@
 #!/bin/bash
 
-IMAGE_NAME="brain-rot-tok"
-CONTAINER_NAME="brain-rot-tok-container"
-PORTS="-p 8000:8000 -p 5173:5173"
+COMPOSE_FILE="docker-compose.yaml"
 
 function show_help() {
     echo "Usage: $0 [OPTION]"
-    echo "Manage the Docker container for TrackSplitter."
+    echo "Manage the Docker Compose services for brain-rot-tok."
     echo
     echo "Options:"
     echo "  --help                Show this help message and exit."
-    echo "  --stop                Stop the running container if it exists."
-    echo "  --remove-container    Stop and remove the container."
-    echo "  --remove-all          Stop and remove the container, then remove the image."
-    echo "  (no option)           Start the container (builds if necessary)."
+    echo "  --stop                Stop the running containers."
+    echo "  --remove-container    Stop and remove all containers."
+    echo "  --remove-all          Stop and remove all containers, then remove images."
+    echo "  --logs                View logs of running services."
+    echo "  (no option)           Start the services (builds if necessary)."
 }
 
-function build_image() {
-    if ! docker image inspect $IMAGE_NAME > /dev/null 2>&1; then
-        echo "Building Docker image..."
-        docker build -t $IMAGE_NAME .
-    else
-        echo "Docker image already exists. Skipping build."
-    fi
-}
-
-function remove_existing_container() {
-    if docker ps -a --filter "name=$CONTAINER_NAME" --format '{{.Names}}' | grep -q $CONTAINER_NAME; then
-        echo "Removing existing container..."
-        docker stop $CONTAINER_NAME > /dev/null 2>&1
-        docker rm $CONTAINER_NAME
-    fi
-}
-
-function run_container() {
-    remove_existing_container
-    echo "Running container..."
-    docker run -it -d $PORTS --name $CONTAINER_NAME $IMAGE_NAME
+function start_services() {
+    echo "Starting services..."
+    docker compose -f $COMPOSE_FILE up -d --build
     sleep 5
     open_browser
+}
+
+function stop_services() {
+    echo "Stopping services..."
+    docker compose -f $COMPOSE_FILE stop
+}
+
+function remove_containers() {
+    echo "Removing containers..."
+    docker compose -f $COMPOSE_FILE down
+}
+
+function remove_all() {
+    echo "Removing all containers and images..."
+    docker compose -f $COMPOSE_FILE down --rmi all
+}
+
+function view_logs() {
+    echo "Displaying logs..."
+    docker compose -f $COMPOSE_FILE logs -f
 }
 
 function open_browser() {
@@ -54,50 +55,23 @@ function open_browser() {
     fi
 }
 
-function stop_container() {
-    if docker ps --filter "name=$CONTAINER_NAME" --format '{{.Names}}' | grep -q $CONTAINER_NAME; then
-        echo "Stopping container..."
-        docker stop $CONTAINER_NAME
-    else
-        echo "Container is not running."
-    fi
-}
-
-function remove_container() {
-    stop_container
-    if docker ps -a --filter "name=$CONTAINER_NAME" --format '{{.Names}}' | grep -q $CONTAINER_NAME; then
-        echo "Removing container..."
-        docker rm $CONTAINER_NAME
-    else
-        echo "Container does not exist."
-    fi
-}
-
-function remove_all() {
-    remove_container
-    if docker image inspect $IMAGE_NAME > /dev/null 2>&1; then
-        echo "Removing Docker image..."
-        docker rmi $IMAGE_NAME
-    else
-        echo "Image does not exist."
-    fi
-}
-
 case "$1" in
-	--help)
-		show_help
-		;;
+    --help)
+        show_help
+        ;;
     --stop)
-        stop_container
+        stop_services
         ;;
     --remove-container)
-        remove_container
+        remove_containers
         ;;
     --remove-all)
         remove_all
         ;;
+    --logs)
+        view_logs
+        ;;
     *)
-        build_image
-        run_container
+        start_services
         ;;
 esac

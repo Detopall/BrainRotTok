@@ -23,6 +23,7 @@
     - [Stop](#stop)
     - [Remove Container](#remove-container)
     - [Remove Image](#remove-image)
+    - [Logs](#logs)
     - [Help](#help)
   - [Server](#server)
   - [Client](#client)
@@ -58,6 +59,7 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 - FastAPI
 - Whisper (OpenAI)
 - FFmpeg
+- Docker
 - ImageMagick
 
 ## How to run this?
@@ -66,7 +68,7 @@ I kept seeing these videos on TikTok and I thought it would be fun to make a web
 
 Execute the following command:
 
-Make sure the bash script has the right permission by running chmod +x run.sh
+Make sure the bash script has the right permission by running `chmod u+x run.sh`
 
 #### Run
 
@@ -74,9 +76,9 @@ Make sure the bash script has the right permission by running chmod +x run.sh
 ./run.sh
 ```
 
-- Build the Docker image (if not already built)
-- Run the container (if it isn't already running)
-- Open the app in your default web browser at `http://localhost:5173/`
+- Builds the Docker image (if not already built)
+- Runs the containers (using docker compose, if it isn't already running)
+- Opens the app in your default web browser at `http://localhost:5173/`
 
 #### Stop
 
@@ -84,7 +86,7 @@ Make sure the bash script has the right permission by running chmod +x run.sh
 ./run.sh --stop
 ```
 
-- Stop the running container
+- Stops the running containers
 
 #### Remove Container
 
@@ -92,8 +94,8 @@ Make sure the bash script has the right permission by running chmod +x run.sh
 ./run.sh --remove-container
 ```
 
-- Stops the running container (if not already stopped)
-- Remove the container
+- Stops the running containers (if not already stopped)
+- Removes the containers
 
 #### Remove Image
 
@@ -101,9 +103,17 @@ Make sure the bash script has the right permission by running chmod +x run.sh
 ./run.sh --remove-all
 ```
 
-- Stops the running container (if not already stopped)
-- Remove the container
-- Remove the Docker image
+- Stops the running containers (if not already stopped)
+- Removes the containers
+- Removes the Docker image
+
+#### Logs
+
+```bash
+./run.sh --logs
+```
+
+- Shows logs of the running containers
 
 #### Help
 
@@ -116,11 +126,7 @@ Make sure the bash script has the right permission by running chmod +x run.sh
 To run it yourself using Docker, you can run the following commands:
 
 ```bash
-# Build the Docker image
-docker build -t brain-rot-tok .
-
-# Run the Docker container in detached mode and expose necessary ports
-docker run -it -d -p 8000:8000 -p 5173:5173 --name brain-rot-tok-container brain-rot-tok
+docker compose -f docker-compose.yaml up -d --build
 ```
 
 You can also individually run the server and client in the next two sections.
@@ -145,7 +151,7 @@ npm install
 npm run dev
 ```
 
-Then just open the link that is printed in the console. This should be `http://127.0.0.1:5173/`
+Then just open the link that is printed in the console. This should be `http://localhost:5173/`
 
 After the server is running, you can go to the client and start using the website.
 

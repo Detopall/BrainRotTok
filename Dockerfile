@@ -43,6 +43,3 @@ WORKDIR /app/brain-rot-tok-server
 # Expose server and client ports
 EXPOSE 8000
 EXPOSE 5173
-
-# Command to run the server and client together
-CMD ["/bin/bash", "-c", "/app/.venv/bin/python /app/brain-rot-tok-server/server.py & cd /app/brain-rot-tok-client && npm run dev -- --host 0.0.0.0 --port 5173"]
