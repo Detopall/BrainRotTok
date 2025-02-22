@@ -6,6 +6,7 @@ import Subtitle from "@/components/Subtitle";
 import GenerateMinecraftButton from "@/components/GenerateMinecraftButton";
 import { Constants } from "@/components/constants";
 import { Button } from "@heroui/button";
+import VoiceChoices from "@/components/VoiceChoices";
 
 function MinecraftVideoType() {
 	const [color, setColor] = useState(Constants.fontColor);
@@ -13,7 +14,8 @@ function MinecraftVideoType() {
 	const [font, setFont] = useState(Constants.fontFamily[0]);
 	const [creditSize, setCreditSize] = useState(Constants.fontSize);
 	const fontFamily = Constants.fontFamily;
-	const [credit, setCredit] = useState("Made by BrainRotTok");
+	const [voice, setVoice] = useState("");
+	const [credit, setCredit] = useState("");
 	const [videoSrc, setVideoSrc] = useState<string>("");
 	const [subtitles, setSubtitles] = useState<string>("");
 
@@ -106,9 +108,12 @@ function MinecraftVideoType() {
 				setCreditSize={setCreditSize}
 			/>
 
+			<VoiceChoices voice={voice} setVoice={setVoice} />
+
 			<GenerateMinecraftButton
 				video={videoRef}
 				subtitles={subtitles}
+				voice={voice}
 				color={color}
 				size={size}
 				font={font}

@@ -15,7 +15,7 @@ def generate_minecraft_subtitles(customization_options, subtitles):
 	background_video_path = customization_options['background_video']
 	output_directory = "./data/minecraft/videos"
 
-	text_to_speech(subtitles, audio_file_path)
+	text_to_speech(subtitles, audio_file_path, customization_options['voice'])
 	transcription = transcribe_audio(audio_file_path)
 	create_subtitles(transcription, subtitle_file)
 

@@ -13,4 +13,5 @@ httpx==0.28.1
 torch==2.6.0
 torchvision==0.21.0
 torchaudio==2.6.0
-gtts==2.5.4
+kokoro==0.7.16
+soundfile==0.13.1

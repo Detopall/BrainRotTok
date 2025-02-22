@@ -16,6 +16,7 @@ async def create_minecraft_video(
 	color: str = Form(...),
 	size: int = Form(...),
 	font: str = Form(...),
+	voice: str = Form(...),
 	credit: str = Form(...),
 	credit_size: int = Form(...),
 	background_tasks: BackgroundTasks = BackgroundTasks()
@@ -33,6 +34,7 @@ async def create_minecraft_video(
 		"font_color": color,
 		"font_size": size,
 		"font_family": font,
+		"voice": voice,
 		"border_size": 1,
 		"credit": credit,
 		"credit_size": credit_size,

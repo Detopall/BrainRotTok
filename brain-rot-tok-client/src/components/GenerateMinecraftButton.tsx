@@ -5,6 +5,7 @@ interface GenerateMinecraftVideo {
 	video: React.RefObject<HTMLVideoElement>;
 	subtitles: string;
 	color: string;
+	voice: string;
 	size: number;
 	font: string;
 	credit: string;
@@ -15,6 +16,7 @@ function GenerateMinecraftVideo({
 	video,
 	subtitles,
 	color,
+	voice,
 	size,
 	font,
 	credit,
@@ -38,7 +40,6 @@ function GenerateMinecraftVideo({
 
 	async function handleRequest() {
 		console.log(video.current);
-		console.log(loading);
 
 		try {
 			if (video.current && !loading) {
@@ -52,6 +53,7 @@ function GenerateMinecraftVideo({
 				formData.append("video", videoBlob, "video.mp4");
 				formData.append("subtitles", subtitles);
 				formData.append("color", color);
+				formData.append("voice", voice);
 				formData.append("size", size.toString());
 				formData.append("font", font);
 				formData.append("credit", credit);

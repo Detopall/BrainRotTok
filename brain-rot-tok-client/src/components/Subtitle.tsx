@@ -103,7 +103,7 @@ function Subtitle({
 						/>
 					</div>
 				</CardBody>
-				<div className="flex justify-center flex-col gap-5 w-full max-w-lg text-center p-6 shadow-lg rounded-2xl">
+				<div className="flex justify-center flex-col gap-5 w-full max-w-lg text-center p-6">
 					<p
 						className="subtitle font-bold"
 						style={{
