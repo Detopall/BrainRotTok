@@ -41,15 +41,6 @@ function RumbleVideoType() {
 					onChange={(e) => setVideoUrl(e.target.value)}
 					className="w-full p-4 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2"
 				/>
-
-				{videoUrl && (
-					<video
-						id="video"
-						className="w-full rounded-lg shadow-md border-2 border-gray-300 mt-4"
-						src={videoUrl}
-						controls
-					/>
-				)}
 			</div>
 
 			<Subtitle

@@ -34,9 +34,15 @@ async def create_rumble_video(request_data: dict = Body(...)):
 	}
 
 	create_files_when_necessary("rumble")
+	remove_content_from_dir("./data/rumble/clips")
 
 	try:
 		# Generate the clips
+		options["video_url"] = await rumble_link_scraper(video_url)
+		if not options["video_url"]:
+			raise ValueError("Failed to retrieve video URL from Rumble")
+
+		print(f"Rumble Video URL: {options["video_url"]}")
 		clips = generate_rumble_clips(options)
 
 		# Create a zip archive in memory

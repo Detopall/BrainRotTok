@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { VideoClip } from "./VideoClipForm";
-import GenerateButtonLayout from "@/layouts/generate-button-layout";
+import { Button } from "@heroui/button";
+
 
 interface GenerateRumbleVideo {
 	videoUrl: string;
@@ -87,12 +88,26 @@ function GenerateRumbleVideo({
 	}
 
 	return (
-		<GenerateButtonLayout
-			loading={loading}
-			resultVideoUrl={videoUrl}
-			handleRequest={handleRequest}
-			getFormattedDateTime={getFormattedDateTime}
-		/>
+		<div className="flex flex-col items-center justify-center space-y-4">
+			{loading ? (
+				<div className="flex justify-center items-center space-x-2">
+					<div className="animate-spin rounded-full border-4 border-t-4 border-gray-400 w-8 h-8"></div>
+					<span>Loading...</span>
+				</div>
+			) : (
+				<div className="space-y-4 text-center">
+					<Button
+						className="px-6 py-3 rounded-md"
+						onPress={handleRequest}
+						isLoading={loading}
+						variant="ghost"
+						color="primary"
+					>
+						Generate
+					</Button>
+				</div>
+			)}
+		</div>
 	);
 }
 

@@ -7,6 +7,7 @@ from utils.video_to_audio import extract_audio
 
 
 def generate_rumble_clips(customization_options, output_directory="./data/rumble/clips"):
+	print(customization_options['video_url'])
 	customization_options['font_color'] = hex_to_ffmpeg_color(customization_options['font_color'])
 	audio_file_path = "./data/rumble/audio.mp3"
 	subtitle_file = "./data/rumble/subtitles.srt"
