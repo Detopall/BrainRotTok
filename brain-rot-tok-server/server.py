@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from endpoints import subway_router, minecraft_router, basic_router, rumble_router
+from endpoints import subway_router, minecraft_router, basic_router, rumble_router, fonts_router
 
 app = FastAPI()
 
@@ -18,6 +18,7 @@ app.include_router(subway_router, prefix="/subway")
 app.include_router(minecraft_router, prefix="/minecraft")
 app.include_router(basic_router, prefix="/basic")
 app.include_router(rumble_router, prefix="/rumble")
+app.include_router(fonts_router, prefix="/fonts")
 
 if __name__ == "__main__":
 	uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
