@@ -16,10 +16,26 @@ function show_help() {
 }
 
 function start_services() {
-    echo "Starting services..."
-    docker compose -f $COMPOSE_FILE up -d --build
-    sleep 5
-    open_browser
+  echo "Starting services..."
+
+  # Check if the containers are running
+  if [[ -z "$(docker ps -q -f name=brainrottok-server)" || -z "$(docker ps -q -f name=brainrottok-client)" ]]; then
+    echo "Containers not running. Checking for images..."
+
+    # Check if images exist
+    if [[ -z "$(docker images -q brainrottok-server:latest)" || -z "$(docker images -q brainrottok-client:latest)" ]]; then
+      echo "Images not found. Building..."
+      docker compose -f $COMPOSE_FILE up -d --build
+    else
+      echo "Images exist. Starting containers..."
+      docker compose -f $COMPOSE_FILE up -d
+    fi
+  else
+    echo "Containers are already running."
+  fi
+
+  sleep 5
+  open_browser
 }
 
 function stop_services() {

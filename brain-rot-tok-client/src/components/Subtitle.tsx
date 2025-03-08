@@ -11,6 +11,7 @@ interface SubtitleProps {
 	size: number;
 	setSize: React.Dispatch<React.SetStateAction<number>>;
 	font: string;
+	fontFamily: string[];
 	setFont: React.Dispatch<React.SetStateAction<string>>;
 	credit: string;
 	setCredit: React.Dispatch<React.SetStateAction<string>>;

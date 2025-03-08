@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: server
     working_dir: /app/brain-rot-tok-server
     command: ["/bin/bash", "-c", "/app/.venv/bin/python /app/brain-rot-tok-server/server.py"]
     ports:
@@ -13,6 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: client
     working_dir: /app/brain-rot-tok-client
     command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]
     ports:
