@@ -6,20 +6,23 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install build dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    curl \
-    ffmpeg \
-    espeak \
-    python3-venv && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+	apt-get install -y --no-install-recommends \
+	curl \
+	ffmpeg \
+	vim \
+	espeak \
+	python3-venv && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
 # Create and activate the virtual environment
 RUN python3 -m venv /app/.venv
-RUN /app/.venv/bin/pip install --upgrade pip
+
+# Upgrade pip & pre-install setuptools + wheel before requirements
+RUN /app/.venv/bin/pip install --upgrade pip setuptools wheel
 
 # Copy and install server requirements
 COPY brain-rot-tok-server/requirements.txt /app/brain-rot-tok-server/requirements.txt
@@ -30,11 +33,12 @@ FROM python:3.12-slim-bookworm AS server
 
 # Install runtime dependencies only
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    ffmpeg \
-    espeak && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+	apt-get install -y --no-install-recommends \
+	ffmpeg \
+	vim \
+	espeak && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
