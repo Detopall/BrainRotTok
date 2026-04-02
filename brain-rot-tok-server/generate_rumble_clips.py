@@ -22,7 +22,7 @@ def generate_rumble_clips(
     clips = []
 
     for idx, clip in enumerate(customization_options["clips"]):
-        # Download the clip directly from Rumble via yt-dlp
+        # Download the clip directly from Rumble via our custom snippet
         video_clip_path = download_clip(
             customization_options["video_url"],
             clip["start"],
@@ -58,8 +58,7 @@ def get_best_quality_format(video_url: str) -> str:
             YT_DLP,
             "-J",
             "--no-playlist",
-            "--user-agent",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "--impersonate=chrome",
             video_url,
         ],
         capture_output=True,
@@ -113,32 +112,97 @@ def get_best_quality_format(video_url: str) -> str:
     return best_format["format_id"]
 
 
+def time_to_seconds(t_str: str) -> float:
+    parts = str(t_str).split(":")
+    return sum(float(x) * 60 ** i for i, x in enumerate(reversed(parts)))
+
+
 def download_clip(
     video_url: str, start_time: str, end_time: str, output_directory: str, idx: int
 ) -> str:
-    """Download a specific time range from a Rumble video using yt-dlp."""
+    """Download a specific section from Rumble stream using curl_cffi and ffmpeg concat."""
+    from curl_cffi import requests
+    import urllib.parse
+    
     output_filepath = os.path.join(output_directory, f"output_clip_{idx}.mp4")
-    best_format = get_best_quality_format(video_url)
-
+    if os.path.exists(output_filepath):
+        try: os.remove(output_filepath)
+        except: pass
+        
     cmd = [
         YT_DLP,
+        "-g",
         "-f",
-        best_format,
-        "--user-agent",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "--download-sections",
-        f"*{start_time}-{end_time}",
-        "--force-keyframes-at-cuts",
+        "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best",
+        "--impersonate=chrome",
         "--no-playlist",
-        "-o",
-        output_filepath,
         video_url,
     ]
-
     result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"yt-dlp failed for clip {idx}:\n{result.stderr}")
-
+    if result.returncode != 0 or not result.stdout.strip():
+        best_format = get_best_quality_format(video_url)
+        cmd = [YT_DLP, "-f", best_format, "--impersonate=chrome", "-g", "--no-playlist", video_url]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            raise RuntimeError(f"yt-dlp failed to get stream URL:\n{result.stderr}")
+            
+    m3u8_url = result.stdout.strip().split("\n")[0]
+    
+    r = requests.get(m3u8_url, impersonate="chrome120")
+    r.raise_for_status()
+    
+    lines = r.text.splitlines()
+    start_sec = time_to_seconds(start_time)
+    end_sec = time_to_seconds(end_time)
+    
+    current_time = 0.0
+    segments = []
+    first_segment_start_time = None
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if line.startswith("#EXTINF:"):
+            duration = float(line.split(":")[1].split(",")[0])
+            i += 1
+            segment_url = lines[i].strip()
+            if not segment_url.startswith("http"):
+                segment_url = urllib.parse.urljoin(m3u8_url, segment_url)
+                
+            segment_end = current_time + duration
+            if segment_end >= start_sec and current_time <= end_sec:
+                segments.append(segment_url)
+                if first_segment_start_time is None:
+                    first_segment_start_time = current_time
+            current_time += duration
+        i += 1
+        
+    if not segments:
+        raise ValueError("Could not find segments overlapping the requested time range.")
+        
+    combined_ts = os.path.join(output_directory, f"combined_{idx}.ts")
+    with open(combined_ts, "wb") as combined_out:
+        for seg_idx, url in enumerate(segments):
+            seg_data = requests.get(url, impersonate="chrome120").content
+            combined_out.write(seg_data)
+            
+    trim_start = max(0, start_sec - first_segment_start_time)
+    trim_duration = end_sec - start_sec
+    
+    trim_cmd = [
+        "ffmpeg", "-y",
+        "-i", combined_ts,
+        "-ss", str(trim_start),
+        "-t", str(trim_duration),
+        "-c:v", "copy",
+        "-c:a", "copy",
+        output_filepath
+    ]
+    subprocess.run(trim_cmd, capture_output=True, text=True)
+    
+    try: os.remove(combined_ts)
+    except: pass
+        
     return output_filepath
 
 

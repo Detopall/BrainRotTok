@@ -16,3 +16,4 @@ kokoro==0.7.16
 soundfile==0.13.1
 matplotlib==3.10.1
 yt-dlp==2026.3.17
+curl-cffi==0.14.0
